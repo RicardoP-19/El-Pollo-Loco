@@ -1,9 +1,42 @@
+* {
+  margin: 0;
+}
+
 body {
+  height: 100vh;
+  background-image: url('assets/img/5_background/background.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-y: hidden;
+  font-family: 'tacobox', Arial, Helvetica, sans-serif;
+}
+
+.headline {
+  padding-top: 22px;
+  font-size: 37px;
+}
+
+.canvas-container {
+  display: flex;
+  align-items: center;
+  height: 100%;
 }
 
 canvas {
-  background-color: black;
+  border-radius: 33px;
+  filter: drop-shadow(2px 4px 9px black);
+}
+
+@font-face {
+  font-family: 'tacobox';
+  src: url('assets/fonts/tacobox.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'eldorado-bold';
+  src: url('assets/fonts/eldorado-bold.otf') format('truetype');
 }
