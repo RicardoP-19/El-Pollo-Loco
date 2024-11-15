@@ -3,7 +3,8 @@ class Character extends MovableObject {
   height = 270;
   speed = 7;
   world;
-  walking_sound = new Audio('assets/audio/run.mp3');
+  walking = new Audio('assets/audio/run.mp3');
+  jumping = new Audio('assets/audio/jump.mp3');
 
   IMAGES_JUMPING = [
     'assets/img/2_character_pepe/3_jump/J-31.png',
@@ -52,21 +53,29 @@ class Character extends MovableObject {
   }
 
   animate() {
+    this.movingCharacter();
+    this.movingCharacterAnimation();
+  }
+
+  movingCharacter() {
     setInterval(() => {
-      this.walking_sound.pause();
+      this.soundPause(this.walking);
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
         this.moveRight();
-        this.walking_sound.play();
+        this.playSound('walking')
       } if (this.world.keyboard.LEFT &&  this.x > 0) {
         this.moveLeft();
-        this.walking_sound.play();
+        this.playSound('walking')
       } if ((this.world.keyboard.UP || keyboard.SPACE) && !this.isAboveGround()) {
-       this.jump();
-      };
+        this.jump();
+        this.playSound('jump');
+      }
       this.world.camera_x = -this.x + 70;
     }, 1000 / 60);
+  }
 
-    setInterval(() => {
+  movingCharacterAnimation() {
+    let interval = setInterval(() => {
       if (this.isAboveGround()) {
         this.playAnimation(this.IMAGES_JUMPING);
       } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
@@ -75,7 +84,16 @@ class Character extends MovableObject {
         this.playAnimation(this.IMAGES_HURT);
       } else if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);
+        this.stopAnimation(interval);
       }
     }, 60);
+  }
+
+  playSound(sound) {
+    if (sound == 'walking') {
+      this.walking.play();
+    } if (sound == 'jump') {
+      this.jumping.play();
+    }
   }
 }
