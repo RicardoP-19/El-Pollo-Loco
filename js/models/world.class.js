@@ -9,9 +9,10 @@ class World {
   coinBar = new CoinBar();
   bottleBar = new BottleBar();
   endboss = new EndbossBar();
-  showEndbossBar = false;
+  showEndbossBar = false;  
   ThrowableObject = [];
-
+  bottle = new ThrowableObject();
+  
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext('2d');
     this.canvas = canvas;
@@ -28,8 +29,9 @@ class World {
   run() {
     setInterval(() => {
       this.checkCollisions();
+      this.checkCollisionsBottle();
       this.checkThrowObjects();
-      this.checkEndboss();
+      this.checkEndbossBar();
     }, 200)
   }
 
@@ -42,14 +44,23 @@ class World {
      });
   }
 
+  checkCollisionsBottle() {
+      this.ThrowableObject.forEach((bottle) => {        
+        if (this.level.enemies[6].isColliding(bottle)) {          
+          this.level.enemies[6].hit();
+          this.endboss.setPercentage(this.level.enemies[6].energy);
+        } 
+    })
+  }
+
   checkThrowObjects() {
     if(this.keyboard.D) {
-      let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
+      let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this);
       this.ThrowableObject.push(bottle);
     }
   }
 
-  checkEndboss() {
+  checkEndbossBar() {
     let distance = this.endboss.x - this.character.x ;    
     if (distance < -1600) {
       this.showEndbossBar = true;

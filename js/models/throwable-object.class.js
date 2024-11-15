@@ -1,18 +1,61 @@
 class ThrowableObject extends MovableObject {
-  constructor(x, y) {
+  world;
+  bottleSplash = new Audio('assets/audio/bottle.mp3');
+
+  IMAGES_ROTATION = [
+    'assets/img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
+    'assets/img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
+    'assets/img/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png',
+    'assets/img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png'
+  ];
+
+  IMAGES_SPLASH = [
+    'assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png',
+    'assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png',
+    'assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/3_bottle_splash.png',
+    'assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/4_bottle_splash.png',
+    'assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png',
+    'assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png'
+  ];
+
+  constructor(x, y, world) {
     super().loadImage('assets/img/6_salsa_bottle/2_salsa_bottle_on_ground.png');
+    this.loadImages(this.IMAGES_ROTATION);
+    this.loadImages(this.IMAGES_SPLASH);
     this.x = x;
     this.y = y;
     this.width = 70;
     this.height = 80;
+    this.world = world;
     this.trow()
   }
 
   trow() {
-    this.speedY = 30;
+    this.soundPause(this.bottleSplash);
+    this.speedY = 25;
     this.applyGravity();
-    setInterval(() => {
-      this.x += 10;
-    }, 25);
+    let interval = setInterval(() => {
+      if (this.isAboveGround()) {
+        this.bottleThrowing();
+      } else {
+        this.bottleSplashFloor(interval);
+      }
+    }, 30);
+  }
+
+  bottleThrowing() {
+    this.x += 10;
+    this.playAnimation(this.IMAGES_ROTATION);
+  }
+
+  bottleSplashFloor(interval) {
+    this.playBottleSplash();
+    setTimeout(() => this.playAnimation(this.IMAGES_SPLASH), 70);
+    clearInterval(interval);
+    setTimeout(() => this.remove(), 280);
+  }
+
+  playBottleSplash() {
+    this.bottleSplash.play();
   }
 }

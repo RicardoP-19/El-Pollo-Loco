@@ -17,17 +17,18 @@ class MovableObject extends DrawableObject{
 
   isAboveGround() {
     if(this instanceof ThrowableObject) {
-      return true;
+      return this.y < 330;
     } else {
       return this.y < 155;
     }
   }
-
+  
   isColliding (mo) {
-    return this.x + this.width > mo.x &&
-           this.y + this.height > mo.y &&
-           this.x < mo.x &&
-           this.y < mo.y + mo.height           
+    const offset = 45;
+    return (this.x + offset + this.width - 2 * offset) > mo.x &&
+           (this.y + offset + this.height - 2 * offset) > mo.y &&
+           (this.x + offset) < (mo.x + mo.width) &&
+           (this.y + offset) < (mo.y + mo.height);        
   }
 
   hit() {
@@ -63,10 +64,29 @@ class MovableObject extends DrawableObject{
     this.speedY = 25;
   }
 
+  soundPause(sound) {
+    sound.pause();
+  }
+
   playAnimation(images) {
     let i = this.currentImage % images.length;
     let path = images[i];
     this.img = this.imageCache[path];
     this.currentImage++; 
+  }
+
+  stopAnimation(interval) {
+    setTimeout(() => {
+      clearInterval(interval);
+    }, 2000)
+  }
+
+  remove() {
+    if (this.world && this.world.ThrowableObject) {
+      const index = this.world.ThrowableObject.indexOf(this);
+      if (index > -1) {
+        this.world.ThrowableObject.splice(index, 1);
+      }
+    }
   }
 }
