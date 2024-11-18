@@ -24,12 +24,13 @@ class MovableObject extends DrawableObject{
   }
   
   isColliding (mo) {
-    const offset = 45;
+    const offset = 30;
     return (this.x + offset + this.width - 2 * offset) > mo.x &&
            (this.y + offset + this.height - 2 * offset) > mo.y &&
            (this.x + offset) < (mo.x + mo.width) &&
            (this.y + offset) < (mo.y + mo.height);        
   }
+
 
   hit() {
     this.energy -= 5;
