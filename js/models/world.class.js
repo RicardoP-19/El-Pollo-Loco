@@ -45,12 +45,15 @@ class World {
   }
 
   checkCollisionsBottle() {
-      this.ThrowableObject.forEach((bottle) => {        
-        if (this.level.enemies[6].isColliding(bottle)) {          
-          this.level.enemies[6].hit();
-          this.endboss.setPercentage(this.level.enemies[6].energy);
-        } 
-    })
+      this.ThrowableObject.forEach((bottle) => { 
+        let interval = setInterval(() => {
+          if (this.level.enemies[6].isColliding(bottle)) {
+            bottle.bottleSplashFloor(interval);
+            this.level.enemies[6].hit();
+            this.endboss.setPercentage(this.level.enemies[6].energy);
+          } 
+        }, 1000 / 150)
+      })
   }
 
   checkThrowObjects() {

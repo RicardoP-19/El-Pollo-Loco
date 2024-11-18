@@ -27,10 +27,10 @@ class ThrowableObject extends MovableObject {
     this.width = 70;
     this.height = 80;
     this.world = world;
-    this.trow()
+    this.throw()
   }
 
-  trow() {
+  throw() {
     this.soundPause(this.bottleSplash);
     this.speedY = 25;
     this.applyGravity();
@@ -50,9 +50,9 @@ class ThrowableObject extends MovableObject {
 
   bottleSplashFloor(interval) {
     this.playBottleSplash();
-    setTimeout(() => this.playAnimation(this.IMAGES_SPLASH), 70);
+    setInterval(() => {this.playAnimation(this.IMAGES_SPLASH)}, 1000/ 60)
     clearInterval(interval);
-    setTimeout(() => this.remove(), 280);
+    setTimeout(() => this.remove(), 150);
   }
 
   playBottleSplash() {
