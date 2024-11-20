@@ -58,7 +58,7 @@ class Character extends MovableObject {
   }
 
   movingCharacter() {
-    setInterval(() => {
+    let characterMove = setInterval(() => {
       this.soundPause(this.walking);
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
         this.moveRight();
@@ -71,11 +71,12 @@ class Character extends MovableObject {
         this.playSound('jump');
       }
       this.world.camera_x = -this.x + 70;
+      this.world.intervalIds.push(characterMove);
     }, 1000 / 60);
   }
 
   movingCharacterAnimation() {
-    let interval = setInterval(() => {
+    let characterInterval = setInterval(() => {
       if (this.isAboveGround()) {
         this.playAnimation(this.IMAGES_JUMPING);
       } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
@@ -84,8 +85,11 @@ class Character extends MovableObject {
         this.playAnimation(this.IMAGES_HURT);
       } else if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);
-        this.stopAnimation(interval);
+        this.stopAnimation(characterInterval);
+        setTimeout(() => {world.stopGame();}, 1000);
       }
+      world.pushIntervall(characterInterval);
+      // world.intervalIds.push(characterInterval);
     }, 60);
   }
 
