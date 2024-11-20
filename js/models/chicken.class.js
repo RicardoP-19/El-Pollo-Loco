@@ -21,6 +21,7 @@ class Chicken extends MovableObject{
     setInterval(() => {
       this.moveLeft();
       this.otherDirection = false;
+      // world.intervalIds.push(intervalIds);
     }, 1000 / 60);
 
     setInterval(() => {

@@ -8,10 +8,11 @@ class World {
   statusBar = new StatusBar();
   coinBar = new CoinBar();
   bottleBar = new BottleBar();
-  endboss = new EndbossBar();
+  endbossBar = new EndbossBar();
   showEndbossBar = false;  
   ThrowableObject = [];
   bottle = new ThrowableObject();
+  intervalIds = [];
   
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext('2d');
@@ -23,7 +24,7 @@ class World {
   }
 
   setWorld() {
-    this.character.world = this; 
+    this.character.world = this;
   }
 
   run() {
@@ -50,7 +51,7 @@ class World {
           if (this.level.enemies[6].isColliding(bottle)) {
             bottle.bottleSplashFloor(interval);
             this.level.enemies[6].hit();
-            this.endboss.setPercentage(this.level.enemies[6].energy);
+            this.endbossBar.setPercentage(this.level.enemies[6].energy);
           } 
         }, 1000 / 150)
       })
@@ -64,9 +65,11 @@ class World {
   }
 
   checkEndbossBar() {
-    let distance = this.endboss.x - this.character.x ;    
+    let endboss = this.level.enemies.find(enemy => enemy instanceof Endboss);
+    let distance = this.endbossBar.x - this.character.x ;
     if (distance < -1600) {
       this.showEndbossBar = true;
+      endboss.startAlertAnimation();
     }
   }
 
@@ -101,7 +104,7 @@ class World {
     this.addToMap(this.coinBar);
     this.addToMap(this.bottleBar);
     if (this.showEndbossBar) {
-      this.addToMap(this.endboss);
+      this.addToMap(this.endbossBar);
     }
   }
 
@@ -138,5 +141,14 @@ class World {
   flipImageBack(mo) {
     mo.x = mo.x * -1;
     this.ctx.restore();
+  }
+
+  stopGame() {
+    this.intervalIds.forEach(clearInterval);
+    this.intervalIds = [];
+  }
+
+  pushIntervall(interval) {
+    world.intervalIds.push(interval); 
   }
 }

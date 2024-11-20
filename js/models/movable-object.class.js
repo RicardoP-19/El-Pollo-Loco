@@ -31,7 +31,6 @@ class MovableObject extends DrawableObject{
            (this.y + offset) < (mo.y + mo.height);        
   }
 
-
   hit() {
     this.energy -= 5;
     if (this.energy < 0) {
@@ -63,6 +62,18 @@ class MovableObject extends DrawableObject{
 
   jump() {
     this.speedY = 25;
+  }
+
+  playSound(sound) {
+    if (sound == 'walking') {
+      this.walking.play();
+    } else if (sound == 'jump') {
+      this.jumping.play();
+    } else if (sound == 'alert') {
+      this.alert_sound.play();
+    } else if (sound == 'endboss') {
+      this.enboss_sound.play();
+    }
   }
 
   soundPause(sound) {
