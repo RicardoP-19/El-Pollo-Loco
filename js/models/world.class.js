@@ -69,7 +69,7 @@ class World {
     let distance = this.endbossBar.x - this.character.x ;
     if (distance < -1600) {
       this.showEndbossBar = true;
-      endboss.startAlertAnimation();
+      endboss.startAlert();
     }
   }
 
