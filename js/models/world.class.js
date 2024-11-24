@@ -25,18 +25,25 @@ class World {
 
   setWorld() {
     this.character.world = this;
+    this.level.clouds.forEach(cloud => cloud.world = this);
+    this.level.coins.forEach(coin => coin.world = this);
   }
 
   run() {
     setInterval(() => {
       this.checkCollisions();
-      this.checkCollisionsBottle();
       this.checkThrowObjects();
       this.checkEndbossBar();
     }, 200)
   }
 
   checkCollisions() {
+    this.characterAndChicken();
+    this.collisionsBottle();
+    this.characterAndCoins();
+  }
+
+  characterAndChicken() {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
        this.character.hit();
@@ -45,16 +52,25 @@ class World {
      });
   }
 
-  checkCollisionsBottle() {
-      this.ThrowableObject.forEach((bottle) => { 
-        let interval = setInterval(() => {
-          if (this.level.enemies[6].isColliding(bottle)) {
-            bottle.bottleSplashFloor(interval);
-            this.level.enemies[6].hit();
-            this.endbossBar.setPercentage(this.level.enemies[6].energy);
-          } 
-        }, 1000 / 150)
-      })
+  collisionsBottle() {
+    this.ThrowableObject.forEach((bottle) => { 
+      let interval = setInterval(() => {
+        if (this.level.enemies[6].isColliding(bottle)) {
+          bottle.bottleSplashFloor(interval);
+          this.level.enemies[6].hit();
+          this.endbossBar.setPercentage(this.level.enemies[6].energy);
+        } 
+      }, 1000 / 150)
+    })
+  }
+
+  characterAndCoins() {
+    this.level.coins.forEach((coin, index) => {
+      if (this.character.isColliding(coin) && this.coinBar.percentage < 100) {
+      this.level.coins.splice(index, 1);
+      this.coinBar.setPercentage(this.coinBar.percentage + 10);     
+      }
+     });
   }
 
   checkThrowObjects() {
@@ -90,6 +106,7 @@ class World {
     this.addObjectsToMap(this.level.backgroundObjects);
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.enemies);
+    this.addObjectsToMap(this.level.coins);
     this.ctx.translate(-this.camera_x, 0)
   }
 
