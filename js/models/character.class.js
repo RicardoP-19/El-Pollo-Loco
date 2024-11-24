@@ -5,6 +5,13 @@ class Character extends MovableObject {
   world;
   walking = new Audio('assets/audio/run.mp3');
   jumping = new Audio('assets/audio/jump.mp3');
+  offset = {
+    top: 100,
+    left: 25,
+    right: 30,
+    bottom: 0
+};
+
 
   IMAGES_JUMPING = [
     'assets/img/2_character_pepe/3_jump/J-31.png',
@@ -71,7 +78,7 @@ class Character extends MovableObject {
         this.playSound('jump');
       }
       this.world.camera_x = -this.x + 70;
-      this.world.intervalIds.push(characterMove);
+      world.pushIntervall(characterMove);
     }, 1000 / 60);
   }
 
@@ -89,15 +96,6 @@ class Character extends MovableObject {
         setTimeout(() => {world.stopGame();}, 1000);
       }
       world.pushIntervall(characterInterval);
-      // world.intervalIds.push(characterInterval);
     }, 60);
-  }
-
-  playSound(sound) {
-    if (sound == 'walking') {
-      this.walking.play();
-    } if (sound == 'jump') {
-      this.jumping.play();
-    }
   }
 }
