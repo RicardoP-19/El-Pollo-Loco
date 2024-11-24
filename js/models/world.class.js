@@ -78,9 +78,9 @@ class World {
 
   characterAndBottles() {
     this.level.bottles.forEach((bottle, index) => {
-      if (this.character.isColliding(bottle)) {
+      if (this.character.isColliding(bottle) && this.bottleBar.percentage < 100) {
       this.level.bottles.splice(index, 1);      
-      this.bottleBar.setPercentage(this.bottleBar.percentage + 20);
+      this.bottleBar.setPercentage(this.bottleBar.percentage + 10);
       this.collectedBottles++;             
       }
      });
@@ -91,7 +91,7 @@ class World {
       let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this);
       this.ThrowableObject.push(bottle);
       this.collectedBottles--;
-      this.bottleBar.setPercentage(this.bottleBar.percentage - 20);
+      this.bottleBar.setPercentage(this.bottleBar.percentage - 10);
     }
   }
 
