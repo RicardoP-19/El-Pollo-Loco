@@ -11,6 +11,8 @@ class MovableObject extends DrawableObject{
       if(this.isAboveGround() || this.speedY > 0) {
         this.y -= this.speedY;
         this.speedY -= this.acceleration; 
+      } else {
+        this.isJumping = false;
       }
     }, 1000 / 25);
   }
@@ -25,9 +27,9 @@ class MovableObject extends DrawableObject{
   
   isColliding (obj) {
     return  (this.x + this.width - this.offset.right) >= (obj.x + obj.offset.left) &&
-        (this.x + this.offset.left) <= (obj.x + obj.width - obj.offset.right) &&
-        (this.y + this.height - this.offset.bottom) >=(obj.y + obj.offset.top)  &&
-        (this.y + this.offset.top) <= (obj.y + obj.height - obj.offset.bottom)
+            (this.x + this.offset.left) <= (obj.x + obj.width - obj.offset.right) &&
+            (this.y + this.height - this.offset.bottom) >=(obj.y + obj.offset.top)  &&
+            (this.y + this.offset.top) <= (obj.y + obj.height - obj.offset.bottom)
   }
 
   hit() {
@@ -61,6 +63,7 @@ class MovableObject extends DrawableObject{
 
   jump() {
     this.speedY = 25;
+    this.isJumping = true;
   }
 
   playSound(sound) {

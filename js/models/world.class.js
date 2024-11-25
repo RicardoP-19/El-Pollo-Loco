@@ -49,19 +49,53 @@ class World {
   characterAndChicken() {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
-       this.character.hit();
-       this.statusBar.setPercentage(this.character.energy);
+          if (this.isCharacterJumpingOnEnemy(enemy)) {
+              this.jumpCollision(enemy);
+          } else {
+              this.normalCollision(enemy);
+          }
       }
-     });
+    });
+  }
+
+  isCharacterJumpingOnEnemy(enemy) {
+    const characterBottom = this.character.y + this.character.height;
+    const enemyTop = enemy.y;
+    return (
+      this.character.isAboveGround() &&
+      this.character.speedY > 0 &&
+      characterBottom >= enemyTop &&
+      characterBottom <= enemyTop + 90
+    );
+  }
+
+  jumpCollision(enemy) {
+    if (enemy instanceof SmallChicken) {
+      enemy.loadImage(enemy.IMAGES_DEAD[0]);
+    } else if (enemy instanceof Chicken) {
+      enemy.loadImage(enemy.IMAGE_DEAD[0]);
+    }
+    enemy.isDead = true;
+    enemy.speed = 0;
+    setTimeout(() => {
+        this.level.enemies = this.level.enemies.filter(element => element !== enemy);
+    }, 300);
+  }
+
+  normalCollision(enemy) {
+    if (enemy.energy > 0) {      
+      this.character.hit();
+      this.statusBar.setPercentage(this.character.energy);
+    }
   }
 
   collisionsBottle() {
     this.ThrowableObject.forEach((bottle) => { 
       let interval = setInterval(() => {
-        if (this.level.enemies[6].isColliding(bottle)) {
+        if (this.level.endboss[0].isColliding(bottle)) {
           bottle.bottleSplashFloor(interval);
-          this.level.enemies[6].hit();
-          this.endbossBar.setPercentage(this.level.enemies[6].energy);
+          this.level.endboss[0].hit();
+          this.endbossBar.setPercentage(this.level.endboss[0].energy);
         }
       }, 1000 / 150)
     })
@@ -96,11 +130,10 @@ class World {
   }
 
   checkEndbossBar() {
-    let endboss = this.level.enemies.find(enemy => enemy instanceof Endboss);
     let distance = this.endbossBar.x - this.character.x ;
     if (distance < -1600) {
       this.showEndbossBar = true;
-      endboss.startAlert();
+      this.level.endboss[0].startAlert();
     }
   }
 
@@ -123,6 +156,7 @@ class World {
     this.addObjectsToMap(this.level.coins);
     this.addObjectsToMap(this.level.bottles);
     this.addObjectsToMap(this.level.enemies);
+    this.addObjectsToMap(this.level.endboss);
     this.ctx.translate(-this.camera_x, 0)
   }
 
@@ -148,8 +182,12 @@ class World {
   }
 
   addObjectsToMap(objects) {
-    objects.forEach(o => {
-      this.addToMap(o);
+    objects.forEach(object => {
+      if (!object.isDead || object instanceof ThrowableObject) { 
+          this.addToMap(object);
+      } else {
+          this.ctx.drawImage(object.img, object.x, object.y, object.width, object.height);
+      }
     });
   }
 
