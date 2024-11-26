@@ -8,11 +8,11 @@ class MovableObject extends DrawableObject{
 
   applyGravity() {
     setInterval(() => {
-      if(this.isAboveGround() || this.speedY > 0) {
+      if (this.isAboveGround() || this.speedY > 0) {
         this.y -= this.speedY;
-        this.speedY -= this.acceleration; 
-      } else {
-        this.isJumping = false;
+        this.speedY -= this.acceleration;
+      } else if (this.speedY !== 0) {
+        setTimeout(() => {this.speedY = 0;}, 30);
       }
     }, 1000 / 25);
   }
@@ -21,7 +21,7 @@ class MovableObject extends DrawableObject{
     if(this instanceof ThrowableObject) {
       return this.y < 330;
     } else {
-      return this.y < 155;
+      return this.y < 160;
     }
   }
   

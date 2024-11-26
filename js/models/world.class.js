@@ -49,44 +49,42 @@ class World {
   characterAndChicken() {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
-          if (this.isCharacterJumpingOnEnemy(enemy)) {
-              this.jumpCollision(enemy);
-          } else {
-              this.normalCollision(enemy);
-          }
+        if (!this.isCharacterJumpingOnEnemy(enemy)) {
+          this.normalCollision();
+        } if (this.isCharacterJumpingOnEnemy(enemy)) {
+          this.jumpCollision(enemy);
+        }
       }
     });
   }
 
   isCharacterJumpingOnEnemy(enemy) {
     const characterBottom = this.character.y + this.character.height;
-    const enemyTop = enemy.y;
-    return (
-      this.character.isAboveGround() &&
-      this.character.speedY > 0 &&
-      characterBottom >= enemyTop &&
-      characterBottom <= enemyTop + 90
-    );
+    const enemyTop = enemy.y - enemy.height;
+    const isFalling = this.character.speedY < 0;
+    console.log(this.character.speedY);
+    return  isFalling && characterBottom >= enemyTop - 40 && 
+            this.character.x + this.character.width > enemy.x &&
+            this.character.x < enemy.x + enemy.width;
   }
 
+
   jumpCollision(enemy) {
+    enemy.isDead = true;
+    enemy.speed = 0;
     if (enemy instanceof SmallChicken) {
       enemy.loadImage(enemy.IMAGES_DEAD[0]);
     } else if (enemy instanceof Chicken) {
       enemy.loadImage(enemy.IMAGE_DEAD[0]);
     }
-    enemy.isDead = true;
-    enemy.speed = 0;
     setTimeout(() => {
         this.level.enemies = this.level.enemies.filter(element => element !== enemy);
-    }, 300);
+    }, 100);  
   }
 
-  normalCollision(enemy) {
-    if (enemy.energy > 0) {      
-      this.character.hit();
-      this.statusBar.setPercentage(this.character.energy);
-    }
+  normalCollision() {    
+    this.character.hit();
+    this.statusBar.setPercentage(this.character.energy);
   }
 
   collisionsBottle() {
@@ -181,13 +179,9 @@ class World {
     this.ctx.translate(-this.camera_x, 0);
   }
 
-  addObjectsToMap(objects) {
+  addObjectsToMap(objects){
     objects.forEach(object => {
-      if (!object.isDead || object instanceof ThrowableObject) { 
-          this.addToMap(object);
-      } else {
-          this.ctx.drawImage(object.img, object.x, object.y, object.width, object.height);
-      }
+        this.addToMap(object);
     });
   }
 
