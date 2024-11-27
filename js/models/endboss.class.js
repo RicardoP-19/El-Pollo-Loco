@@ -83,8 +83,9 @@ class Endboss extends MovableObject {
   gameEnded() {
     this.dead = true;
     this.playAnimation(this.IMAGES_DEAD);
+    this.enboss_sound.pause();
     setTimeout(() => {
-      this.loadImage(this.IMAGES_DEAD[2]);   
+      this.loadImage(this.IMAGES_DEAD[2]);
       world.stopGame();
     }, this.IMAGES_DEAD.length * 60);
   }
@@ -92,7 +93,7 @@ class Endboss extends MovableObject {
   startAlert() {
     if (!this.isMoving && !this.alerted) {
       this.setAlertAndMoving();
-      this.playSound('alert');
+      world.playSound('alert');
       this.playAndStopAnimation();
       setTimeout(() => this.startMoving(), 3000);
     }
@@ -111,7 +112,7 @@ class Endboss extends MovableObject {
 
   startMoving() {
     if (!this.dead) {
-      this.playSound('endboss');      
+      world.playSound('endboss');      
       this.Moving();
       this.movingAnimation();
       setTimeout(() => {this.startAttack()}, 3500); 
@@ -140,7 +141,7 @@ class Endboss extends MovableObject {
   startAttack() {
     if (!this.dead) {
       this.isMoving = false;
-      this.playSound('alert');
+      world.playSound('alert');
       this.attackAnimation();
       setTimeout(() => this.startMoving(), 2000);
     }

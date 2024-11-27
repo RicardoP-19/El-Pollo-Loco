@@ -66,22 +66,6 @@ class MovableObject extends DrawableObject{
     this.isJumping = true;
   }
 
-  playSound(sound) {
-    if (sound == 'walking') {
-      this.walking.play();
-    } else if (sound == 'jump') {
-      this.jumping.play();
-    } else if (sound == 'alert') {
-      this.alert_sound.play();
-    } else if (sound == 'endboss') {
-      this.enboss_sound.play();
-    }
-  }
-
-  soundPause(sound) {
-    sound.pause();
-  }
-
   playAnimation(images) {
     let i = this.currentImage % images.length;
     let path = images[i];
