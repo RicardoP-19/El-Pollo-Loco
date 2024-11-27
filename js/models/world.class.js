@@ -62,7 +62,6 @@ class World {
     const characterBottom = this.character.y + this.character.height;
     const enemyTop = enemy.y - enemy.height;
     const isFalling = this.character.speedY < 0;
-    console.log(this.character.speedY);
     return  isFalling && characterBottom >= enemyTop - 40 && 
             this.character.x + this.character.width > enemy.x &&
             this.character.x < enemy.x + enemy.width;
@@ -74,8 +73,10 @@ class World {
     enemy.speed = 0;
     if (enemy instanceof SmallChicken) {
       enemy.loadImage(enemy.IMAGES_DEAD[0]);
+      this.playSound('smallChicken');
     } else if (enemy instanceof Chicken) {
       enemy.loadImage(enemy.IMAGE_DEAD[0]);
+      this.playSound('chicken');
     }
     setTimeout(() => {
         this.level.enemies = this.level.enemies.filter(element => element !== enemy);
@@ -102,6 +103,7 @@ class World {
   characterAndCoins() {
     this.level.coins.forEach((coin, index) => {
       if (this.character.isColliding(coin) && this.coinBar.percentage < 100) {
+      this.playSound('coin');
       this.level.coins.splice(index, 1);
       this.coinBar.setPercentage(this.coinBar.percentage + 10);         
       }
@@ -111,6 +113,7 @@ class World {
   characterAndBottles() {
     this.level.bottles.forEach((bottle, index) => {
       if (this.character.isColliding(bottle) && this.bottleBar.percentage < 100) {
+      this.playSound('bottle');
       this.level.bottles.splice(index, 1);      
       this.bottleBar.setPercentage(this.bottleBar.percentage + 10);
       this.collectedBottles++;             
@@ -215,5 +218,43 @@ class World {
 
   pushIntervall(interval) {
     world.intervalIds.push(interval); 
+  }
+
+  playSound(sound) {
+    if (sound == 'hurt') {
+      this.character.hurt.play();
+    } else if (sound == 'jump') {
+      this.character.jumping.play();
+    } else if (sound == 'alert') {
+      this.level.endboss[0].alert_sound.play();
+    } else if (sound == 'endboss') {
+      this.level.endboss[0].enboss_sound.play();
+    } else if (sound == 'coin') {
+      this.level.coins[0].coin.play();
+    } else if (sound == 'bottle') {
+      this.bottle.collect_bottle.play();
+    } else if (sound == 'chicken') {
+      this.playEnemySound ('chicken');
+    } else if (sound == 'smallChicken') {
+      this.playEnemySound ('smallChicken');
+    }   
+  }
+
+  playEnemySound (array) {
+    if (array == 'chicken') {
+      const chickens = this.level.enemies.filter(enemy => enemy instanceof Chicken);
+      if (chickens.length > 0) {
+        chickens[0].chicken_sound?.play();
+      } 
+    } if (array == 'smallChicken') {
+      const smallChickens = this.level.enemies.filter(enemy => enemy instanceof SmallChicken);
+      if (smallChickens.length > 0) {
+        smallChickens[0].smallChicken?.play();
+      }
+    }
+  }
+
+  soundPause(sound) {
+    sound.pause();
   }
 }

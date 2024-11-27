@@ -3,6 +3,7 @@ class SmallChicken extends MovableObject{
   width = 35;
   height = 45;
   isDead = false;
+  smallChicken = new Audio('assets/audio/small_chicken.mp3');
   
   IMAGES_WALKING = [
     'assets/img/3_enemies_chicken/chicken_small/1_walk/1_w.png',

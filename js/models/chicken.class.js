@@ -3,6 +3,7 @@ class Chicken extends MovableObject{
   width = 70;
   height = 60;
   isDead = false;
+  chicken_sound = new Audio('assets/audio/chicken.mp3');
   
   IMAGES_WALKING = [
     'assets/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png',

@@ -3,7 +3,7 @@ class Character extends MovableObject {
   height = 270;
   speed = 7;
   world;
-  walking = new Audio('assets/audio/run.mp3');
+  hurt = new Audio('assets/audio/hurt.mp3');
   jumping = new Audio('assets/audio/jump.mp3');
   offset = {
     top: 100,
@@ -66,16 +66,13 @@ class Character extends MovableObject {
 
   movingCharacter() {
     let characterMove = setInterval(() => {
-      this.soundPause(this.walking);
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
         this.moveRight();
-        this.playSound('walking')
       } if (this.world.keyboard.LEFT &&  this.x > 0) {
         this.moveLeft();
-        this.playSound('walking')
       } if ((this.world.keyboard.UP || keyboard.SPACE) && !this.isAboveGround()) {
         this.jump();
-        this.playSound('jump');
+        world.playSound('jump');
       }
       this.world.camera_x = -this.x + 70;
       world.pushIntervall(characterMove);
@@ -90,6 +87,7 @@ class Character extends MovableObject {
         this.playAnimation(this.IMAGES_WALKING);
       } else if (this.isHurt()) {
         this.playAnimation(this.IMAGES_HURT);
+        world.playSound('hurt');
       } else if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);
         this.stopAnimation(characterInterval);
