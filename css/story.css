@@ -1,0 +1,21 @@
+.story {
+  width: 70%;
+  height: 80%;
+  font-size: 22px;
+  font-weight: 400;
+  font-family: 'Mexina-xRndO', Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+  animation: menu 0.7s ease-in-out 0s 1 normal forwards;
+}
+
+@keyframes menu {
+	0% {
+		transform: scale(0);
+		transform-origin: 50% 100%;
+	}
+
+	100% {
+		transform: scale(1);
+		transform-origin: 50% 100%;
+	}
+}

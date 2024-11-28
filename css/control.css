@@ -1,0 +1,38 @@
+.controls-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  width: 70%;
+  animation: control 0.7s ease-in-out 0s 1 normal forwards;
+}
+
+@keyframes control {
+	0% {
+		transform: scale(0);
+		transform-origin: 50% 100%;
+	}
+
+	100% {
+		transform: scale(1);
+		transform-origin: 50% 100%;
+	}
+}
+
+.control {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  width: 100%;
+  gap: 50px;
+  font-size: 28px;
+}
+
+.control img {
+  width: 42px;
+}
+
+.key-jump {
+  display: flex;
+  flex-direction: column;
+}
