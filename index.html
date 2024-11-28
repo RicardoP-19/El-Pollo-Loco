@@ -34,69 +34,78 @@
 </head>
 
 <body onload="init()">
-  <div class="headline">
-    <h1>El Pollo Loco</h1>
-  </div>
-  <div class="canvas-container">
+  <header>
+    <div class="headline">
+      <h1>El Pollo Loco</h1>
+    </div>
+  </header>
+  <main class="canvas-container">
     <div>
-      <div id="start" class="start">
-        <img src="./assets/img/9_intro_outro_screens/start/startscreen_1.png" alt="Start">
-      </div>
-      <div id="menu" class="menu d-none">
-        <div id="story" class="story">
-          <span>
-            Jedes Jahr feierte Pepes Dorf das große Taco-Fest.
-            Doch dieses Mal verdunkelte sich der Himmel, als Señora Gallina,
-            ein riesiges, böses Huhn, mit ihrer Armee wilder Hühner das Fest überfiel.
-            Sie zerstörten das Dorf und stahlen das berühmte Taco-Rezept. <br><br>
-            Pepe schwor, sein Dorf zu retten und das wertvolle Rezept zurückzuholen. <br><br>
-            Begleite Pepe auf seiner gefährlichen Reise, 
-            das geheime Taco-Rezept zu finden und sein Dorf zu befreien! <br><br>
-            Aber sei vorsichtig!
-            Es wird eine heiße Mission! 🌶️
-          </span>
-        </div>
-        <div id="control" class="controls-container d-none">
-          <div class="control">
-            <img src="assets/icon/move-left.png" alt="">
-            <span>Run Left</span>
+      <section>
+        <div>
+          <div id="start" class="start">
+            <img src="./assets/img/9_intro_outro_screens/start/startscreen_1.png" alt="Start">
           </div>
-          <div class="control">
-            <img src="assets/icon/move-right.png" alt="">
-            <span>Run Right</span>
-          </div>
-          <div class="control">
-            <div class="key-jump">
-              <img src="assets/icon/jump.png" alt="">
-              <img src="assets/icon/space.png" alt="">
+          <div id="menu" class="menu d-none">
+            <div id="story" class="story">
+              <span>
+                Jedes Jahr feierte Pepes Dorf das große Taco-Fest.
+                Doch dieses Mal verdunkelte sich der Himmel, als Señora Gallina,
+                ein riesiges, böses Huhn, mit ihrer Armee wilder Hühner das Fest überfiel.
+                Sie zerstörten das Dorf und stahlen das berühmte Taco-Rezept. <br><br>
+                Pepe schwor, sein Dorf zu retten und das wertvolle Rezept zurückzuholen. <br><br>
+                Begleite Pepe auf seiner gefährlichen Reise, 
+                das geheime Taco-Rezept zu finden und sein Dorf zu befreien! <br><br>
+                Aber sei vorsichtig!
+                Es wird eine heiße Mission! 🌶️
+              </span>
             </div>
-            <span>Jump</span>
-          </div>
-          <div class="control">
-            <img src="assets/icon/throw.png" alt="">
-            <span>Throw</span>
+            <div id="control" class="controls-container d-none">
+              <div class="control">
+                <img src="assets/icon/move-left.png" alt="">
+                <span>Run Left</span>
+              </div>
+              <div class="control">
+                <img src="assets/icon/move-right.png" alt="">
+                <span>Run Right</span>
+              </div>
+              <div class="control">
+                <div class="key-jump">
+                  <img src="assets/icon/jump.png" alt="">
+                  <img src="assets/icon/space.png" alt="">
+                </div>
+                <span>Jump</span>
+              </div>
+              <div class="control">
+                <img src="assets/icon/throw.png" alt="">
+                <span>Throw</span>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
+      <section>
+        <canvas id="canvas" class="canvas d-none" width="720" height="480"></canvas>
+      </section>
+      <section>
+        <div class="game-menu-content">
+          <!-- <div class="fullScrenn-container">
+            <img src="assets/icon/fullscreen.png" alt="fullscreen">
+          </div> -->
+        </div>
+      </section>  
+      <section>
+        <div id="menuBtn" class="menu-play-container">
+          <button onclick="openMenu()" id="menu">Menu</button>
+          <button onclick="startGame()">Play</button>
+        </div>
+        <div id="infoBtn" class="info-container d-none">
+          <img onclick="openStory()" src="assets/icon/taco.png" alt="taco">
+          <img onclick="openControl()" src="assets/icon/maracas.png" alt="maracas">
+          <img onclick="returnToMenu()" src="assets/icon/back.png" alt="back">
+        </div>
+      </section>
     </div>
-    <canvas id="canvas" class="canvas d-none" width="720" height="480"></canvas>
-    <div class="game-menu-content">
-      <!-- <div class="fullScrenn-container">
-        <img src="assets/icon/fullscreen.png" alt="fullscreen">
-      </div> -->
-    </div>
-
-    <section>
-      <div id="menuBtn" class="menu-play-container">
-        <button onclick="openMenu()" id="menu">Menu</button>
-        <button onclick="startGame()">Play</button>
-      </div>
-      <div id="infoBtn" class="info-container d-none">
-        <img onclick="openStory()" src="assets/icon/taco.png" alt="taco">
-        <img onclick="openControl()" src="assets/icon/maracas.png" alt="maracas">
-        <img onclick="returnToMenu()" src="assets/icon/back.png" alt="back">
-      </div>
-    </section>
-  </div>
+  </main>
 </body>
 </html>
