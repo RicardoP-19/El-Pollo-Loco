@@ -33,7 +33,7 @@
   <title>El Pollo Loco</title>
 </head>
 
-<body onload="init()">
+<body>
   <header>
     <div class="headline">
       <h1>El Pollo Loco</h1>
@@ -46,6 +46,7 @@
           <div id="start" class="start">
             <img src="./assets/img/9_intro_outro_screens/start/startscreen_1.png" alt="Start">
           </div>
+          <img id="endScreen" class="ende d-none" src="./assets/img/9_intro_outro_screens/win/win_2.png">
           <div id="menu" class="menu d-none">
             <div id="story" class="story">
               <span>
@@ -89,13 +90,14 @@
       </section>
       <section>
         <div class="game-menu-content">
-          <!-- <div class="fullScrenn-container">
+          <div class="fullScrenn-container">
             <img src="assets/icon/fullscreen.png" alt="fullscreen">
-          </div> -->
+            <img src="assets/icon/guitar.png" alt="sound">
+          </div>
         </div>
       </section>  
       <section>
-        <div id="menuBtn" class="menu-play-container">
+        <div id="menuBtn" class="game-btn">
           <button onclick="openMenu()" id="menu">Menu</button>
           <button onclick="startGame()">Play</button>
         </div>
@@ -103,6 +105,10 @@
           <img onclick="openStory()" src="assets/icon/taco.png" alt="taco">
           <img onclick="openControl()" src="assets/icon/maracas.png" alt="maracas">
           <img onclick="returnToMenu()" src="assets/icon/back.png" alt="back">
+        </div>
+        <div id="gameEnd" class="game-btn d-none">
+          <button onclick="restartGame()">Restart Game</button>
+          <button onclick="exitGame()">Exit Game</button>
         </div>
       </section>
     </div>
