@@ -86,7 +86,7 @@ body {
   width: 100%;
 }
 
-.fullScrenn-container {
+.fullScrenn-sound-content {
   display: flex;
   position: relative;
   gap: 8px;
@@ -94,6 +94,6 @@ body {
   padding-right: 50px;
 }
 
-.fullScrenn-container img {
+.fullScrenn-sound-content img {
   width: 28px;
 }
