@@ -65,18 +65,18 @@ class Endboss extends MovableObject {
   checkHurt() {
     let hurtInterval = setInterval(() => {
       if (this.isHurt()) {
-        world.pushIntervall(hurtInterval); 
         this.playAnimation(this.IMAGES_HURT);   
       } 
+      world.pushIntervall(hurtInterval); 
     }, 60);
   }
 
   checkDead() {
     let deadInterval = setInterval(() => {
       if (this.isDead()) {
-        world.pushIntervall(deadInterval);
         this.gameEnded();        
       }
+      world.pushIntervall(deadInterval);
     }, 60);
   }
 
@@ -86,12 +86,12 @@ class Endboss extends MovableObject {
     this.enboss_sound.pause();
     setTimeout(() => {
       this.loadImage(this.IMAGES_DEAD[2]);
-      world.stopGame();
+      world.stopGame('win');
     }, this.IMAGES_DEAD.length * 60);
   }
 
   startAlert() {
-    if (!this.isMoving && !this.alerted) {
+    if (!this.isMoving && !this.alerted && !this.gameEnd) {
       this.setAlertAndMoving();
       world.playSound('alert');
       this.playAndStopAnimation();
@@ -125,8 +125,8 @@ class Endboss extends MovableObject {
       if (this.isMoving) {
         this.moveLeft();
         this.otherDirection = false;
-        world.pushIntervall(movingInterval);
       }
+      world.pushIntervall(movingInterval);
     }, 1000 / 10);
   }
 
@@ -150,8 +150,8 @@ class Endboss extends MovableObject {
   attackAnimation() {
     let startInterval = setInterval(() => {
       this.playAnimation(this.IMAGES_ATTACK);        
-      world.pushIntervall(startInterval);
     }, 400);
+    world.pushIntervall(startInterval);
     this.stopAnimation(startInterval);
   }
 }

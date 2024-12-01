@@ -1,6 +1,7 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let gameStarted = false;
 
 function openMenu() {
   document.getElementById('start').classList.add('d-none');
@@ -13,6 +14,7 @@ function startGame() {
   document.getElementById('start').classList.add('d-none');
   document.getElementById('menuBtn').classList.add('d-none');
   document.getElementById('canvas').classList.remove('d-none');
+  gameStarted = true;
   init();
 }
 
@@ -33,7 +35,24 @@ function returnToMenu() {
   document.getElementById('menuBtn').classList.remove('d-none');
 }
 
+function restartGame() {
+  gameStarted = false;
+  document.getElementById('gameEnd').classList.add('d-none');
+  document.getElementById('endScreen').classList.add('d-none');
+  startGame();
+}
+
+function exitGame() {
+  gameStarted = false;
+  document.getElementById('gameEnd').classList.add('d-none');
+  document.getElementById('endScreen').classList.add('d-none');
+  document.getElementById('canvas').classList.add('d-none');
+  document.getElementById('menuBtn').classList.remove('d-none');
+  document.getElementById('start').classList.remove('d-none');
+}
+
 function init() {
+  initLevel();
   canvas =  document.getElementById('canvas');
   world = new World(canvas, keyboard);
 }

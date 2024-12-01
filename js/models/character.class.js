@@ -89,11 +89,16 @@ class Character extends MovableObject {
         this.playAnimation(this.IMAGES_HURT);
         world.playSound('hurt');
       } else if (this.isDead()) {
-        this.playAnimation(this.IMAGES_DEAD);
-        this.stopAnimation(characterInterval);
-        setTimeout(() => {world.stopGame();}, 1000);
+        this.gameOver(characterInterval);
       }
       world.pushIntervall(characterInterval);
     }, 60);
+  }
+
+  gameOver(characterInterval) {
+    this.playAnimation(this.IMAGES_DEAD);
+    this.stopAnimation(characterInterval);
+    this.world.level.endboss[0].dead = true;
+    setTimeout(() => {world.stopGame('lose')}, 1000);
   }
 }

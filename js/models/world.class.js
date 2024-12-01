@@ -10,11 +10,11 @@ class World {
   bottleBar = new BottleBar();
   endbossBar = new EndbossBar();
   showEndbossBar = false;
-  bottle = new ThrowableObject();  
+  bottle = new ThrowableObject(); 
   ThrowableObject = [];
   intervalIds = [];
   collectedBottles = 0;
-  
+
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext('2d');
     this.canvas = canvas;
@@ -66,7 +66,6 @@ class World {
             this.character.x + this.character.width > enemy.x &&
             this.character.x < enemy.x + enemy.width;
   }
-
 
   jumpCollision(enemy) {
     enemy.isDead = true;
@@ -211,7 +210,23 @@ class World {
     this.ctx.restore();
   }
 
-  stopGame() {
+  stopGame(ended) {
+    this.stoppAllInterval();
+    this.showEndScreen(ended);
+  }
+
+  showEndScreen(ended) {
+    document.getElementById('endScreen').classList.remove('d-none');
+    document.getElementById('gameEnd').classList.remove('d-none');
+    let endScreen = document.getElementById('endScreen');
+    if (ended == 'win') {
+      endScreen.src = 'assets/img/9_intro_outro_screens/win/win_2.png';
+    } if (ended == 'lose' ) {
+      endScreen.src = 'assets/img/9_intro_outro_screens/game_over/game over.png';
+    }
+  }
+
+  stoppAllInterval() {
     this.intervalIds.forEach(clearInterval);
     this.intervalIds = [];
   }

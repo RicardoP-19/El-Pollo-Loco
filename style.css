@@ -31,6 +31,14 @@ body {
   filter: drop-shadow(2px 4px 6px black);
 }
 
+.ende {
+  position: absolute;
+  z-index: 10;
+  width: 720px;
+  height: 480px;
+  border-radius: 33px;
+}
+
 .menu {
   display: flex;
   justify-content: flex-start;
@@ -74,16 +82,18 @@ body {
 
 .game-menu-content {
   display: flex;
-  justify-content: space-between;
+  justify-content: right;
   width: 100%;
 }
 
 .fullScrenn-container {
+  display: flex;
   position: relative;
+  gap: 8px;
   bottom: 50px;
-  padding-left: 50px;
+  padding-right: 50px;
 }
 
 .fullScrenn-container img {
-  width: 32px;
+  width: 28px;
 }
