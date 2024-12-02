@@ -16,6 +16,7 @@ function startGame() {
   document.getElementById('canvas').classList.remove('d-none');
   gameStarted = true;
   init();
+  setTimeout(() => {document.getElementById('screenAndSound').classList.remove('d-none')}, 500);
 }
 
 function openStory() {
@@ -37,6 +38,7 @@ function returnToMenu() {
 
 function restartGame() {
   gameStarted = false;
+  document.getElementById('screenAndSound').classList.add('d-none');
   document.getElementById('gameEnd').classList.add('d-none');
   document.getElementById('endScreen').classList.add('d-none');
   startGame();
@@ -47,6 +49,7 @@ function exitGame() {
   document.getElementById('gameEnd').classList.add('d-none');
   document.getElementById('endScreen').classList.add('d-none');
   document.getElementById('canvas').classList.add('d-none');
+  document.getElementById('screenAndSound').classList.add('d-none');
   document.getElementById('menuBtn').classList.remove('d-none');
   document.getElementById('start').classList.remove('d-none');
 }
@@ -98,3 +101,49 @@ addEventListener('keyup', (event) => {
     keyboard.D = false;
   }
 });
+
+function toggleFullscreen() {
+  const element = document.getElementById('fullscreen');
+  const menuButtons = document.getElementById('fullScreenMenu');
+  const gameEndImage = document.getElementById('gameResult');
+  const image = document.getElementById('fullScreenImage');
+  if (!document.fullscreenElement) {
+      openFullscreen(element);
+      fullscreenImage(element, menuButtons, gameEndImage, image);
+  } else {
+      closeFullscreen();
+      minimalImages(element, menuButtons, gameEndImage, image);
+  }
+}
+
+function fullscreenImage(element, menuButtons, gameEndImage, image) {
+  if(image) image.src = 'assets/icon/minimumscreen.png';
+  element.classList.add('fullscrenn');
+  menuButtons.classList.add('fullscreen-menu');
+  gameEndImage.classList.add('win-lose-fullscreen');
+}
+
+function minimalImages(element, menuButtons, gameEndImage, image) {
+  if(image) image.src = 'assets/icon/fullscreen.png';
+  element.classList.remove('fullscrenn');
+  menuButtons.classList.remove('fullscreen-menu');
+  gameEndImage.classList.remove('gameResult');
+}
+
+function openFullscreen(element) {
+  if(element.requestFullscreen) {
+    element.requestFullscreen();
+  } else if(element.msRequestFullscreen) {
+    element.msRequestFullscreen();
+  } else if(element.webkitRequestFullscreen) {
+    element.webkitRequestFullscreen();
+  }
+}
+
+function closeFullscreen() {
+  if(document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if(document.webkitExitFullscreen) {
+    document.webkitExitFullscreen();
+  }
+}
