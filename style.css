@@ -86,14 +86,6 @@ body {
   width: 100%;
 }
 
-.fullScrenn-sound-content {
-  display: flex;
-  position: relative;
-  gap: 8px;
-  bottom: 50px;
-  padding-right: 50px;
-}
-
-.fullScrenn-sound-content img {
-  width: 28px;
+.width-100 {
+  width: 100%;
 }
