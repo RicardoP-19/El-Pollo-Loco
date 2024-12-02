@@ -14,11 +14,13 @@ class World {
   ThrowableObject = [];
   intervalIds = [];
   collectedBottles = 0;
+  soundEnabled = true;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext('2d');
     this.canvas = canvas;
     this.keyboard = keyboard;
+    this.soundEnabled = true;
     this.draw();
     this.setWorld();
     this.run();
@@ -236,6 +238,7 @@ class World {
   }
 
   playSound(sound) {
+    if (!this.soundEnabled) return;
     if (sound == 'hurt') {
       this.character.hurt.play();
     } else if (sound == 'jump') {
@@ -271,5 +274,29 @@ class World {
 
   soundPause(sound) {
     sound.pause();
+  }
+
+  toggleSound() {
+    this.soundEnabled = !this.soundEnabled;
+    this.updateSoundIcon();
+    if (!this.soundEnabled) {
+      this.stopAllSounds();
+    }
+  }
+
+  stopAllSounds() {
+    if (this.level.endboss.length > 0) {
+      this.level.endboss[0].enboss_sound.pause();
+      this.level.endboss[0].alert_sound.pause();
+    }
+  }
+
+  updateSoundIcon() {
+    const soundIcon = document.getElementById('soundIcon');
+    if (this.soundEnabled) {
+      soundIcon.src = 'assets/icon/guitar.png';
+    } else {
+      soundIcon.src = 'assets/icon/no-music.png';
+    }
   }
 }
