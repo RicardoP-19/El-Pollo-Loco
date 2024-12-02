@@ -46,6 +46,7 @@ class World {
     this.collisionsBottle();
     this.characterAndCoins();
     this.characterAndBottles();
+    this.characterAndEndboss();
   }
 
   characterAndChicken() {
@@ -120,6 +121,14 @@ class World {
       this.collectedBottles++;             
       }
      });
+  }
+
+  characterAndEndboss() {
+    let endboss = this.level.endboss[0];
+    if (this.character.isColliding(endboss)) {
+      this.character.hit();
+      this.statusBar.setPercentage(this.character.energy);
+    }
   }
 
   checkThrowObjects() {

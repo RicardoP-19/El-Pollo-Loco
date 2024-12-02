@@ -8,6 +8,12 @@ class Endboss extends MovableObject {
   dead = false;
   alert_sound = new Audio('assets/audio/endboss.mp3');
   enboss_sound = new Audio('assets/audio/endboss_music.mp3')
+  offset = {
+    top: 0,
+    left: 60,
+    right: 50,
+    bottom: 0
+  };
 
   IMAGES_WALKING = [
     'assets/img/4_enemie_boss_chicken/1_walk/G1.png',

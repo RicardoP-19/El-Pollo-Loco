@@ -8,7 +8,7 @@ class Coin extends DrawableObject {
     left: 40,
     right: 40,
     bottom: 40
-};
+  };
 
   constructor() {
     super();
