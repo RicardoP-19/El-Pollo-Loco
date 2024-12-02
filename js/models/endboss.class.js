@@ -112,7 +112,9 @@ class Endboss extends MovableObject {
 
   startMoving() {
     if (!this.dead) {
-      world.playSound('endboss');      
+      if (world.soundEnabled) {
+        world.playSound('endboss');      
+      }    
       this.Moving();
       this.movingAnimation();
       setTimeout(() => {this.startAttack()}, 3500); 

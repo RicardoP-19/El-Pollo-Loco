@@ -50,7 +50,9 @@ class ThrowableObject extends MovableObject {
 
   bottleSplashFloor(interval) {
     clearInterval(interval);
-    this.bottleSplash.play();
+    if (world.soundEnabled) {
+      this.bottleSplash.play();
+    }
     this.playAnimation(this.IMAGES_SPLASH);
     setTimeout(() => this.remove(), 150);
   }
