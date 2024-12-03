@@ -15,6 +15,8 @@ class World {
   intervalIds = [];
   collectedBottles = 0;
   soundEnabled = true;
+  backgroundMusic;
+
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext('2d');
@@ -24,6 +26,7 @@ class World {
     this.draw();
     this.setWorld();
     this.run();
+    this.gameMusic();
   }
 
   setWorld() {
@@ -143,6 +146,7 @@ class World {
   checkEndbossBar() {
     let distance = this.endbossBar.x - this.character.x ;
     if (distance < -1600) {
+      this.toggleBackgroundMusic(false);
       this.showEndbossBar = true;
       this.level.endboss[0].startAlert();
     }
@@ -285,11 +289,30 @@ class World {
     sound.pause();
   }
 
+  gameMusic() {
+    this.soundEnabled = true;
+    this.backgroundMusic = new Audio('assets/audio/el_pollo_loco_music.mp3');
+    this.backgroundMusic.loop = true;
+    this.backgroundMusic.volume = 0.2;
+    this.toggleBackgroundMusic(true);
+  }
+
+  toggleBackgroundMusic(play) {
+    if (this.soundEnabled && play) {
+      this.backgroundMusic.play();
+    } else {
+      this.backgroundMusic.pause();
+    }
+  }
+
   toggleSound() {
     this.soundEnabled = !this.soundEnabled;
     this.updateSoundIcon();
     if (!this.soundEnabled) {
       this.stopAllSounds();
+      this.toggleBackgroundMusic(false);
+    } else {
+      this.toggleBackgroundMusic(true);
     }
   }
 
