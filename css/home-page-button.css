@@ -1,0 +1,81 @@
+.game-btn-content {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  gap: 18px;
+}
+
+.game-btn {
+  position: relative;
+  top: 22px;
+  font-family: inherit;
+  padding: 0.6em 1.3em;
+  font-weight: 200;
+  font-size: 20px;
+  border: 3px solid black;
+  border-radius: 0.4em;
+  cursor: pointer;
+  background-image: linear-gradient(
+    0deg,
+    hsl(34deg 84% 66%) 0%,
+    hsl(34deg 83% 65%) 16%,
+    hsl(33deg 82% 64%) 24%,
+    hsl(32deg 81% 62%) 30%,
+    hsl(32deg 80% 61%) 35%,
+    hsl(31deg 79% 60%) 40%,
+    hsl(30deg 78% 58%) 45%,
+    hsl(30deg 77% 57%) 50%,
+    hsl(30deg 78% 58%) 55%,
+    hsl(31deg 79% 60%) 60%,
+    hsl(32deg 80% 61%) 65%,
+    hsl(32deg 81% 62%) 70%,
+    hsl(33deg 82% 64%) 76%,
+    hsl(34deg 83% 65%) 84%,
+    hsl(34deg 84% 66%) 100%
+  );
+}
+
+button:hover {
+  transform: translate(-0.05em, -0.05em);
+  filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.550));
+}
+
+.mobile-btn-content {
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  left: 25%;
+  right: 25%;
+}
+
+.mobile-btn {
+  position: relative;
+  top: 40px;
+  font-family: inherit;
+  padding: 0.5em 1em;
+  font-weight: 200;
+  font-size: 16px;
+  border: 3px solid black;
+  border-radius: 0.4em;
+  cursor: pointer;
+  background-image: linear-gradient(
+    170deg,
+    hsl(193deg 71% 47%) 0%,
+    hsl(195deg 60% 52%) 16%,
+    hsl(196deg 58% 56%) 24%,
+    hsl(196deg 57% 60%) 30%,
+    hsl(197deg 55% 63%) 35%,
+    hsl(197deg 54% 66%) 40%,
+    hsl(197deg 52% 69%) 45%,
+    hsl(198deg 51% 71%) 50%,
+    hsl(198deg 49% 74%) 55%,
+    hsl(198deg 47% 76%) 60%,
+    hsl(198deg 45% 79%) 65%,
+    hsl(198deg 43% 81%) 70%,
+    hsl(198deg 39% 84%) 76%,
+    hsl(198deg 35% 86%) 84%,
+    hsl(198deg 29% 88%) 100%
+  );
+}
