@@ -147,3 +147,29 @@ function closeFullscreen() {
     document.webkitExitFullscreen();
   }
 }
+
+function checkWindowWitdh() {
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+  if (width <= 740 || height <= 700) {
+    mobileVersion();
+  } else {
+    desktopVersion();
+  };
+}
+
+function mobileVersion() {
+  document.getElementById('headline').classList.add('d-none');
+  document.getElementById('menuBtn').classList.add('d-none');
+  document.getElementById('imprint').classList.add('d-none');
+  document.getElementById('mobileMenuBtn').classList.remove('d-none');
+  document.getElementById('mobileImprint').classList.remove('d-none');
+}
+
+function desktopVersion() {
+  document.getElementById('mobileMenuBtn').classList.add('d-none');
+  document.getElementById('mobileImprint').classList.add('d-none');
+  document.getElementById('headline').classList.remove('d-none');
+  document.getElementById('menuBtn').classList.remove('d-none');
+  document.getElementById('imprint').classList.remove('d-none');
+}
