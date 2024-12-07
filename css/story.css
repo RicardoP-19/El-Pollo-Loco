@@ -3,9 +3,14 @@
   height: 80%;
   font-size: 22px;
   font-weight: 400;
+  overflow-y: auto;
   font-family: 'Mexina-xRndO', Arial, Helvetica, sans-serif;
   box-sizing: border-box;
   animation: menu 0.7s ease-in-out 0s 1 normal forwards;
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
 
 @keyframes menu {
@@ -18,11 +23,4 @@
 		transform: scale(1);
 		transform-origin: 50% 100%;
 	}
-}
-
-@media (max-width: 740px) {
-	.story {
-    width: 100%;
-    height: 100%;
-  }
 }
