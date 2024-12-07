@@ -35,26 +35,35 @@
   <title>El Pollo Loco</title>
 </head>
 
-<body onresize="checkWindowWitdh()">
+<body>
   <header>
     <div id="headline" class="headline">
       <h1>El Pollo Loco</h1>
     </div>
   </header>
-  <main class="canvas-container">
-    <div id="fullscreen">
-      <section>
+  <main class="width-100 height-100">
+    <div id="fullscreen" class="width-100 height-100">
+      <section class="display-flex width-100 height-100">
           <canvas id="canvas" class="canvas d-none" width="720" height="480"></canvas>
-          <div id="gameResult">
-            <div id="start" class="start">
-              <div id="mobileMenuBtn" class="mobile-btn-content d-none">
-                <button class="mobile-btn" onclick="openMenu()" id="#">Menu</button>
-                <button class="mobile-btn" onclick="startGame()">Play</button>
+          <div id="gameWindow" class="game-window width-100 height-100 display-flex">
+            <div id="start" class="start display-flex">
+              <div class="back">
+                <div id="mobileMenuBtn" class="mobile-btn-content d-none">
+                  <button class="mobile-btn" onclick="openMobileMenu()">Menu</button>
+                  <button class="mobile-btn" onclick="startGame()">Play</button>
+                </div>
+                <img src="./assets/img/9_intro_outro_screens/start/startscreen_1.png" alt="Start">
+                <div id="mobileImprint" class="mobile d-none">
+                  <p>Imprint</p>
+                </div>
               </div>
-              <img src="./assets/img/9_intro_outro_screens/start/startscreen_1.png" alt="Start">
+              <div id="menuBtn" class="game-btn-content">
+                <button class="game-btn" onclick="openMenu()">Menu</button>
+                <button class="game-btn" onclick="startGame()">Play</button>
+              </div>
             </div>
-            <img id="endScreen" class="end-screen d-none" src="./assets/img/9_intro_outro_screens/win/win_2.png">
-            <div id="menu" class="info-menu d-none">
+            <img id="endScreen" class="end-screen d-none" src="./assets/img/9_intro_outro_screens/win/win_2.png">            
+            <div id="menu" class="d-none info-menu height-100">
               <div id="story" class="story">
                 <span>
                   Jedes Jahr feierte Pepes Dorf das große Taco-Fest.
@@ -89,10 +98,23 @@
                   <span>Throw</span>
                 </div>
               </div>
+              <div id="infoBtnMobile" class="info-container-mobil d-none">
+                <img onclick="openStory()" src="assets/icon/taco.png" alt="taco">
+                <img onclick="openControl()" src="assets/icon/maracas.png" alt="maracas">
+                <img onclick="returnToMobileMenu()" src="assets/icon/back.png" alt="back">
+              </div>
             </div>
-          </div>
-          <div id="mobileImprint" class="imprint mobile d-none">
-            <p>Imprint</p>
+            <div class="game-buttons">
+              <div id="infoBtn" class="info-container d-none">
+                <img onclick="openStory()" src="assets/icon/taco.png" alt="taco">
+                <img onclick="openControl()" src="assets/icon/maracas.png" alt="maracas">
+                <img onclick="returnToMenu()" src="assets/icon/back.png" alt="back">
+              </div>
+              <div id="gameEnd" class="game-btn-content d-none">
+                <button class="game-btn" onclick="restartGame()">Restart Game</button>
+                <button class="game-btn" onclick="exitGame()">Exit Game</button>
+              </div>
+            </div>
           </div>
       </section>
       <section id="fullScreenMenu">
@@ -101,21 +123,6 @@
             <img id="fullScreenImage" onclick="toggleFullscreen()" src="assets/icon/fullscreen.png" alt="fullscreen">
             <img id="soundIcon" onclick="world.toggleSound()" src="assets/icon/guitar.png" alt="sound">
           </div>
-        </div>
-      </section>  
-      <section class="game-buttons">
-        <div id="menuBtn" class="game-btn-content">
-          <button class="game-btn" onclick="openMenu()" id="menu">Menu</button>
-          <button class="game-btn" onclick="startGame()">Play</button>
-        </div>
-        <div id="infoBtn" class="info-container d-none">
-          <img onclick="openStory()" src="assets/icon/taco.png" alt="taco">
-          <img onclick="openControl()" src="assets/icon/maracas.png" alt="maracas">
-          <img onclick="returnToMenu()" src="assets/icon/back.png" alt="back">
-        </div>
-        <div id="gameEnd" class="game-btn-content d-none">
-          <button class="game-btn" onclick="restartGame()">Restart Game</button>
-          <button class="game-btn" onclick="exitGame()">Exit Game</button>
         </div>
       </section>
     </div>

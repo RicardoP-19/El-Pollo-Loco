@@ -2,57 +2,7 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let gameStarted = false;
-
-function openMenu() {
-  document.getElementById('start').classList.add('d-none');
-  document.getElementById('menuBtn').classList.add('d-none');
-  document.getElementById('menu').classList.remove('d-none');
-  document.getElementById('infoBtn').classList.remove('d-none');
-}
-
-function startGame() {
-  document.getElementById('start').classList.add('d-none');
-  document.getElementById('menuBtn').classList.add('d-none');
-  document.getElementById('canvas').classList.remove('d-none');
-  gameStarted = true;
-  init();
-  setTimeout(() => {document.getElementById('screenAndSound').classList.remove('d-none')}, 500);
-}
-
-function openStory() {
-  document.getElementById('control').classList.add('d-none');
-  document.getElementById('story').classList.remove('d-none');
-}
-
-function openControl() {
-  document.getElementById('control').classList.remove('d-none');
-  document.getElementById('story').classList.add('d-none');
-}
-
-function returnToMenu() {
-  document.getElementById('menu').classList.add('d-none');
-  document.getElementById('infoBtn').classList.add('d-none');
-  document.getElementById('start').classList.remove('d-none');
-  document.getElementById('menuBtn').classList.remove('d-none');
-}
-
-function restartGame() {
-  gameStarted = false;
-  document.getElementById('screenAndSound').classList.add('d-none');
-  document.getElementById('gameEnd').classList.add('d-none');
-  document.getElementById('endScreen').classList.add('d-none');
-  startGame();
-}
-
-function exitGame() {
-  gameStarted = false;
-  document.getElementById('gameEnd').classList.add('d-none');
-  document.getElementById('endScreen').classList.add('d-none');
-  document.getElementById('canvas').classList.add('d-none');
-  document.getElementById('screenAndSound').classList.add('d-none');
-  document.getElementById('menuBtn').classList.remove('d-none');
-  document.getElementById('start').classList.remove('d-none');
-}
+let isMenuVisible = false;
 
 function init() {
   initLevel();
@@ -105,7 +55,7 @@ addEventListener('keyup', (event) => {
 function toggleFullscreen() {
   const element = document.getElementById('fullscreen');
   const menuButtons = document.getElementById('fullScreenMenu');
-  const gameEndImage = document.getElementById('gameResult');
+  const gameEndImage = document.getElementById('gameWindow');
   const image = document.getElementById('fullScreenImage');
   if (!document.fullscreenElement) {
       openFullscreen(element);
@@ -127,7 +77,7 @@ function minimalImages(element, menuButtons, gameEndImage, image) {
   if(image) image.src = 'assets/icon/fullscreen.png';
   element.classList.remove('fullscrenn');
   menuButtons.classList.remove('fullscreen-menu');
-  gameEndImage.classList.remove('gameResult');
+  gameEndImage.classList.remove('gameWindow');
 }
 
 function openFullscreen(element) {
@@ -148,17 +98,32 @@ function closeFullscreen() {
   }
 }
 
-function checkWindowWitdh() {
-  const width = window.innerWidth;
-  const height = window.innerHeight;
-  if (width <= 740 || height <= 700) {
-    mobileVersion();
+window.addEventListener('resize', checkHomeScreen);
+window.addEventListener('resize', checkMenuScreenOnResize);
+
+function checkHomeScreen() {
+  if (window.innerWidth < 740 || window.innerHeight < 700) {
+    mobileHomeScreen();
   } else {
-    desktopVersion();
-  };
+    desktopHomeScreen();
+  }
 }
 
-function mobileVersion() {
+function checkMenuScreenOnResize() {
+  if (isMenuVisible) {
+    checkMenuScreen();
+  }
+}
+
+function checkMenuScreen() {
+  if (window.innerWidth < 740 || window.innerHeight < 700) {
+    openMobileMenu();
+  } else {
+    openMenu();
+  }
+}
+
+function mobileHomeScreen() {
   document.getElementById('headline').classList.add('d-none');
   document.getElementById('menuBtn').classList.add('d-none');
   document.getElementById('imprint').classList.add('d-none');
@@ -166,10 +131,80 @@ function mobileVersion() {
   document.getElementById('mobileImprint').classList.remove('d-none');
 }
 
-function desktopVersion() {
+function desktopHomeScreen() {
   document.getElementById('mobileMenuBtn').classList.add('d-none');
   document.getElementById('mobileImprint').classList.add('d-none');
   document.getElementById('headline').classList.remove('d-none');
   document.getElementById('menuBtn').classList.remove('d-none');
   document.getElementById('imprint').classList.remove('d-none');
+}
+
+function openMenu() {
+  isMenuVisible = true;
+  document.getElementById('start').classList.add('d-none');
+  document.getElementById('infoBtnMobile').classList.add('d-none');
+  document.getElementById('menu').classList.remove('d-none');
+  document.getElementById('infoBtn').classList.remove('d-none');
+}
+
+function openMobileMenu() {
+  isMenuVisible = true;
+  document.getElementById('start').classList.add('d-none');
+  document.getElementById('infoBtn').classList.add('d-none');
+  document.getElementById('menu').classList.remove('d-none');
+  document.getElementById('infoBtnMobile').classList.remove('d-none');
+}
+
+function startGame() {
+  document.getElementById('start').classList.add('d-none');
+  document.getElementById('menuBtn').classList.add('d-none');
+  document.getElementById('canvas').classList.remove('d-none');
+  gameStarted = true;
+  init();
+  setTimeout(() => {document.getElementById('screenAndSound').classList.remove('d-none')}, 500);
+}
+
+function openStory() {
+  document.getElementById('control').classList.add('d-none');
+  document.getElementById('story').classList.remove('d-none');
+}
+
+function openControl() {
+  document.getElementById('control').classList.remove('d-none');
+  document.getElementById('story').classList.add('d-none');
+}
+
+function returnToMenu() {
+  isMenuVisible = false;
+  document.getElementById('menu').classList.add('d-none');
+  document.getElementById('infoBtn').classList.add('d-none');
+  document.getElementById('start').classList.remove('d-none');
+  document.getElementById('menuBtn').classList.remove('d-none');
+}
+
+function returnToMobileMenu() {
+  isMenuVisible = false;
+  document.getElementById('menu').classList.add('d-none');
+  document.getElementById('infoBtn').classList.add('d-none');
+  document.getElementById('menuBtn').classList.add('d-none');
+  document.getElementById('infoBtnMobile').classList.add('d-none');
+  document.getElementById('start').classList.remove('d-none');
+}
+
+function restartGame() {
+  gameStarted = false;
+  document.getElementById('screenAndSound').classList.add('d-none');
+  document.getElementById('gameEnd').classList.add('d-none');
+  document.getElementById('endScreen').classList.add('d-none');
+  startGame();
+}
+
+function exitGame() {
+  gameStarted = false;
+  document.getElementById('gameEnd').classList.add('d-none');
+  document.getElementById('endScreen').classList.add('d-none');
+  document.getElementById('canvas').classList.add('d-none');
+  document.getElementById('screenAndSound').classList.add('d-none');
+  document.getElementById('menuBtn').classList.remove('d-none');
+  document.getElementById('start').classList.remove('d-none');
 }

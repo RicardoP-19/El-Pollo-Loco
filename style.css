@@ -7,20 +7,13 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow-x: hidden;
+  justify-content: center;
   font-family: 'tacobox', Arial, Helvetica, sans-serif;
 }
 
 .headline {
   padding-top: 22px;
   font-size: 37px;
-}
-
-.canvas-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 100%;
 }
 
 .canvas {
@@ -30,31 +23,36 @@ body {
   filter: drop-shadow(2px 4px 9px black);
 }
 
-.start img {
-  width: 720px;
-  height: 480px;
-  border-radius: 33px;
+.game-window {
+  flex-direction: column;
+}
+
+.start {
+  flex-direction: column;
+  max-width: 720px;
+  max-height: 480px;
   filter: drop-shadow(2px 4px 6px black);
+}
+
+.start img {
+  width: 100%;
+  height: 100%;
+  border-radius: 33px;
 }
 
 .info-menu {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-around;
   align-items: center;
-  padding-left: 28px;
   background-image: url('assets/img/9_intro_outro_screens/start/wandet.jpg');
   background-position: center;
   background-size: cover;
-  width: 720px;
-  height: 480px;
+  width: 100%;
+  height: 100%;
+  max-width: 720px;
+  max-height: 480px;
   border-radius: 33px;
   filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.539));
-}
-
-#gameResult {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .end-screen {
@@ -85,13 +83,20 @@ footer {
 .imprint {
   padding: 8px 30px;
   font-size: 18px;
+  cursor: pointer;
 }
 
 .mobile {
   display: flex;
   justify-content: end;
-  position: relative;
-  bottom: 40px;
+  position: absolute;
+  bottom: 10px;
+  width: 100dvw;
+  max-width: 720px;
+}
+
+.mobile p {
+  padding-right: 20px;
 }
 
 @font-face {
@@ -117,24 +122,26 @@ footer {
 
 @media only screen and (max-width: 740px) {
   .canvas {
-    width: 100%;
-    height: 100vh;
+    width: 100dvw;
+    height: 100dvh;
   }
 
   .start img {
-    width: 100%;
+    border-radius: 0;
+  }
+
+  .info-menu {
     border-radius: 0;
   }
 }
 
 @media only screen and (max-height: 480px) {
   .canvas {
-    width: 100%;
-    height: 100vh;
+    width: 100dvw;
+    height: 100dvh;
   }
 
-  .start img {
-    height: 100%;
+  .info-menu {
     border-radius: 0;
   }
 }

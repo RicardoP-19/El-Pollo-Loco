@@ -40,3 +40,24 @@
   transform: translate(-0.05em, -0.05em);
   filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.550));
 }
+
+.info-container-mobil {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 18px;  
+}
+
+.info-container-mobil img {
+  width: 38px;
+  border: 1px solid black;
+  border-radius: 50px;
+  background: hsl(34deg 84% 66%);
+  padding: 0.4em;
+  cursor: pointer;
+}
+
+.info-container-mobil img:hover {
+  transform: translate(-0.05em, -0.05em);
+  filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.550));
+}
