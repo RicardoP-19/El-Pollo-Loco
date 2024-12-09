@@ -16,6 +16,7 @@ class World {
   collectedBottles = 0;
   soundEnabled = true;
   backgroundMusic;
+  gameEnd = false;
 
 
   constructor(canvas, keyboard) {
@@ -231,8 +232,9 @@ class World {
   }
 
   showEndScreen(ended) {
+    this.gameEnd = true;
+    document.getElementById('screenAndSound').classList.add('d-none');
     document.getElementById('endScreen').classList.remove('d-none');
-    document.getElementById('gameEnd').classList.remove('d-none');
     let endScreen = document.getElementById('endScreen');
     if (ended == 'win') {
       endScreen.src = 'assets/img/9_intro_outro_screens/win/win_2.png';
