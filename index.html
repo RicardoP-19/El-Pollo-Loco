@@ -7,8 +7,7 @@
   <link rel="icon" type="image/png" href="assets/icon/kaktus.png"/>
   <link rel="stylesheet" href="css/standart.css">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="css/home-page-button.css">
-  <link rel="stylesheet" href="css/info-game-button.css">
+  <link rel="stylesheet" href="css/buttons.css">
   <link rel="stylesheet" href="css/story.css">
   <link rel="stylesheet" href="css/control.css">
   <link rel="stylesheet" href="css/fullscreen.css">
@@ -42,10 +41,9 @@
     </div>
   </header>
   <main class="width-100 height-100">
-    <div id="fullscreen" class="width-100 height-100">
-      <section class="display-flex width-100 height-100">
-          <canvas id="canvas" class="canvas d-none" width="720" height="480"></canvas>
-          <div id="gameWindow" class="game-window width-100 height-100 display-flex">
+    <div id="fullscreen" class="display-flex width-100 height-100">
+      <section class="display-flex direction-column width-100">
+          <div id="gameWindow" class="game-window width-100 display-flex">
             <div id="start" class="start display-flex">
               <div class="back">
                 <div id="mobileMenuBtn" class="mobile-btn-content d-none">
@@ -62,7 +60,6 @@
                 <button class="game-btn" onclick="startGame()">Play</button>
               </div>
             </div>
-            <img id="endScreen" class="end-screen d-none" src="./assets/img/9_intro_outro_screens/win/win_2.png">            
             <div id="menu" class="d-none info-menu height-100">
               <div id="story" class="story">
                 <span>
@@ -110,21 +107,35 @@
                 <img onclick="openControl()" src="assets/icon/maracas.png" alt="maracas">
                 <img onclick="returnToMenu()" src="assets/icon/back.png" alt="back">
               </div>
-              <div id="gameEnd" class="game-btn-content d-none">
-                <button class="game-btn" onclick="restartGame()">Restart Game</button>
-                <button class="game-btn" onclick="exitGame()">Exit Game</button>
-              </div>
             </div>
           </div>
+
+          <div id="gameContainer" class="game-container d-none">
+            <canvas id="canvas" class="canvas d-none" width="720" height="480"></canvas>
+            <img id="endScreen" class="end-screen d-none" src="./assets/img/9_intro_outro_screens/win/win_2.png">
+            <div id="screenAndSound" class="fullScrenn-sound-content d-none">
+              <img id="fullScreenImage" onclick="toggleFullscreen()" src="assets/icon/fullscreen.png" alt="fullscreen">
+              <img id="soundIcon" onclick="world.toggleSound()" src="assets/icon/guitar.png" alt="sound">
+            </div>
+            <div id="gameEndMobil" class="restart-exit-btn-mobil d-none">
+              <button class="game-btn-mobil" onclick="restartGame()">Restart Game</button>
+              <button class="game-btn-mobil" onclick="exitGame()">Exit Game</button>
+            </div>
+          </div>
+          <div id="gameEnd" class="restart-exit-btn d-none">
+            <button class="game-btn" onclick="restartGame()">Restart Game</button>
+            <button class="game-btn" onclick="exitGame()">Exit Game</button>
+          </div>
+
       </section>
-      <section id="fullScreenMenu">
+      <!-- <section id="fullScreenMenu">
         <div class="game-menu-content">
           <div id="screenAndSound" class="fullScrenn-sound-content d-none">
             <img id="fullScreenImage" onclick="toggleFullscreen()" src="assets/icon/fullscreen.png" alt="fullscreen">
             <img id="soundIcon" onclick="world.toggleSound()" src="assets/icon/guitar.png" alt="sound">
           </div>
         </div>
-      </section>
+      </section> -->
     </div>
   </main>
   <footer>

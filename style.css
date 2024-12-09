@@ -16,8 +16,22 @@ body {
   font-size: 37px;
 }
 
+.game-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  max-width: 720px;
+  max-height: 480px;
+}
+
 .canvas {
-  position: relative;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: block;
   border-radius: 33px;
   filter: drop-shadow(2px 4px 9px black);
@@ -59,7 +73,7 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -47.5%);
+  transform: translate(-50%, -50%);
   z-index: 10;
   width: 720px;
   height: 484px;
@@ -122,8 +136,15 @@ footer {
 
 @media only screen and (max-width: 740px) {
   .canvas {
-    width: 100dvw;
-    height: 100dvh;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  .end-screen {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
   }
 
   .start img {
@@ -137,8 +158,15 @@ footer {
 
 @media only screen and (max-height: 480px) {
   .canvas {
-    width: 100dvw;
-    height: 100dvh;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  .end-screen {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
   }
 
   .info-menu {
