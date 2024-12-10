@@ -172,7 +172,9 @@ function desktopHomeScreen() {
   document.getElementById('mobileImprint').classList.add('d-none');
   document.getElementById('headline').classList.remove('d-none');
   document.getElementById('menuBtn').classList.remove('d-none');
-  document.getElementById('imprint').classList.remove('d-none');
+  if (!gameStarted) {
+    document.getElementById('imprint').classList.remove('d-none'); 
+  }
 }
 
 function openMenu() {
@@ -222,6 +224,7 @@ function returnToMobileMenu() {
 function startGame() {
   document.getElementById('start').classList.add('d-none');
   document.getElementById('menuBtn').classList.add('d-none');
+  document.getElementById('imprint').classList.add('d-none');
   document.getElementById('gameContainer').classList.remove('d-none');
   document.getElementById('canvas').classList.remove('d-none');
   gameStarted = true;
@@ -241,11 +244,8 @@ function gameEndDesktopButtons() {
 
 function restartGame() {
   gameStarted = false;
-  document.getElementById('screenAndSound').classList.add('d-none');
-  document.getElementById('gameEnd').classList.add('d-none');
-  document.getElementById('gameEndMobil').classList.add('d-none');
-  document.getElementById('endScreen').classList.add('d-none');
-  document.getElementById('screenAndSound').classList.remove('d-none');
+  world.gameEnd = false;
+  closeEndScreen();
   startGame();
 }
 

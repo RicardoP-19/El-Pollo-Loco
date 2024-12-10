@@ -233,6 +233,11 @@ class World {
 
   showEndScreen(ended) {
     this.gameEnd = true;
+    this.endScreenChoose(ended);
+    this.endScreenTypeButtons();
+  }
+
+  endScreenChoose(ended) {
     document.getElementById('screenAndSound').classList.add('d-none');
     document.getElementById('endScreen').classList.remove('d-none');
     let endScreen = document.getElementById('endScreen');
@@ -240,6 +245,15 @@ class World {
       endScreen.src = 'assets/img/9_intro_outro_screens/win/win_2.png';
     } if (ended == 'lose' ) {
       endScreen.src = 'assets/img/9_intro_outro_screens/game_over/game over.png';
+    }
+  }
+
+  endScreenTypeButtons() {
+    const screenType = getScreenType();
+    if (screenType === 'mobile') {
+      gameEndMobileButtons();
+    } else {
+      gameEndDesktopButtons();
     }
   }
 
