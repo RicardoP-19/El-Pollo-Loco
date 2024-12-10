@@ -109,22 +109,26 @@
                 <img onclick="returnToMenu()" src="assets/icon/back.png" alt="back">
               </div>
             </div>
+            <div id="gameEnd" class="restart-exit-container d-none">
+              <button class="game-btn" onclick="restartGame()">Restart Game</button>
+              <button class="game-btn" onclick="exitGame()">Exit Game</button>
+            </div>
           </div>
           <div id="gameContainer" class="game-container d-none">
             <canvas id="canvas" class="canvas d-none" width="720" height="480"></canvas>
             <img id="endScreen" class="end-screen d-none" src="./assets/img/9_intro_outro_screens/win/win_2.png">
             <div id="screenAndSound" class="fullScrenn-sound-content d-none">
-              <img id="fullScreenImage" onclick="toggleFullscreen()" src="assets/icon/fullscreen.png" alt="fullscreen">
-              <img id="soundIcon" onclick="world.toggleSound()" src="assets/icon/guitar.png" alt="sound">
+              <div class="fullscreen-sound-btn">
+                <img id="fullScreenImage" onclick="toggleFullscreen()" src="assets/icon/fullscreen.png" alt="fullscreen">
+              </div>
+              <div class="fullscreen-sound-btn">
+                <img id="soundIcon" onclick="world.toggleSound()" src="assets/icon/guitar.png" alt="sound">
+              </div>
             </div>
             <div id="gameEndMobil" class="restart-exit-btn-mobil d-none">
               <button class="game-btn-mobil" onclick="restartGame()">Restart Game</button>
               <button class="game-btn-mobil" onclick="exitGame()">Exit Game</button>
             </div>
-          </div>
-          <div id="gameEnd" class="restart-exit-btn d-none">
-            <button class="game-btn" onclick="restartGame()">Restart Game</button>
-            <button class="game-btn" onclick="exitGame()">Exit Game</button>
           </div>
       </section>
     </div>

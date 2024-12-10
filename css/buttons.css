@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   gap: 18px;
-  padding-top: 14px;
+  padding-top: 30px;
 }
 
 .game-btn {
@@ -143,7 +143,7 @@ button:hover {
   filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.550));
 }
 
-.restart-exit-btn {
+.restart-exit-container {
   position: relative;
   top: 240px;
 }
@@ -213,5 +213,27 @@ button:hover {
     hsl(33deg 82% 64%) 76%,
     hsl(34deg 83% 65%) 84%,
     hsl(34deg 84% 66%) 100%
+  );
+}
+
+.fullscreen-sound-btn {
+  padding: 0.3em 0.5em;
+  border-radius: 0.4em;
+  cursor: pointer;
+  background-image: linear-gradient(
+    180deg,
+    hsl(194deg 62% 53%) 0%,
+    hsl(194deg 61% 55%) 18%,
+    hsl(195deg 61% 57%) 26%,
+    hsl(195deg 60% 60%) 33%,
+    hsl(196deg 59% 62%) 39%,
+    hsl(196deg 59% 64%) 44%,
+    hsl(197deg 58% 67%) 50%,
+    hsl(197deg 57% 69%) 56%,
+    hsl(198deg 55% 71%) 61%,
+    hsl(198deg 53% 74%) 67%,
+    hsl(199deg 51% 76%) 74%,
+    hsl(199deg 49% 79%) 82%,
+    hsl(200deg 45% 81%) 100%
   );
 }
