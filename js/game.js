@@ -268,3 +268,20 @@ function closeEndScreen() {
   document.getElementById('gameEnd').classList.add('d-none');
   document.getElementById('gameEndMobil').classList.add('d-none');
 }
+
+function openImprint() {
+  document.getElementById('start').classList.add('d-none');
+  document.getElementById('menuBtn').classList.add('d-none');
+  document.getElementById('imprint').classList.add('d-none');
+  document.getElementById('imprintContainer').classList.remove('d-none');
+}
+
+function closeImprint() {
+  document.getElementById('imprintContainer').classList.add('d-none');
+  const screenType = getScreenType();
+  if (screenType === 'mobile') {
+    returnToMobileMenu();
+  } else {
+    returnToMenu();
+  }
+}

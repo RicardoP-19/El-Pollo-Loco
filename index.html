@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="css/story.css">
   <link rel="stylesheet" href="css/control.css">
   <link rel="stylesheet" href="css/fullscreen.css">
+  <link rel="stylesheet" href="css/imprint.css">
   <script src="js/models/world.class.js"></script>
   <script src="js/models/drawable-object.class.js"></script>
   <script src="js/models/movable-object.class.js"></script>
@@ -52,7 +53,7 @@
                 </div>
                 <img src="./assets/img/9_intro_outro_screens/start/startscreen_1.png" alt="Start">
                 <div id="mobileImprint" class="mobile d-none">
-                  <p>Imprint</p>
+                  <p onclick="openImprint()">Imprint</p>
                 </div>
               </div>
               <div id="menuBtn" class="game-btn-content">
@@ -134,10 +135,25 @@
       </div> 
       <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
     </div>
+    <div id="imprintContainer" class="imprint-container display-flex direction-column width-100 height-100 d-none">
+      <div class="imprint-content display-flex direction-column">
+        <h1>Imprint</h1>
+        <div class="imprint-name-adress">
+          <p>Ricardo Pinto</p>
+          <p>Merowingerstr. 25</p>
+          <p>85435 Erding</p>
+        </div>
+        <div class="imprint-contact display-flex direction-column">
+          <h2>Contact</h2>
+          <p>Ricardo-Pinto@web.de</p>
+        </div>
+      </div>
+      <button onclick="closeImprint()" class="imprint-close-btn">Close</button>
+    </div>
   </main>
   <footer>
     <div id="imprint" class="imprint">
-      <p>Imprint</p>
+      <p onclick="openImprint()">Imprint</p>
     </div>
   </footer>
 </body>
