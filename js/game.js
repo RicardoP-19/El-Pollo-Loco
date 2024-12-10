@@ -104,10 +104,31 @@ function getScreenType() {
 
 window.addEventListener('resize', () => {
   const screenType = getScreenType();
+  checkRotateScreen()
   checkHomeScreen(screenType);
   checkMenuScreenOnResize(screenType);
   openGameButtons(screenType);
 });
+
+window.addEventListener('load', () => {
+  const screenType = getScreenType();
+  checkRotateScreen()
+  checkHomeScreen(screenType);
+  checkMenuScreenOnResize(screenType);
+  openGameButtons(screenType);
+});
+
+function checkRotateScreen() {
+  const screenType = getScreenType();
+  const rotateScreen = document.getElementById('rotateScreen');
+  if (screenType === 'mobile') {
+    if (window.innerWidth < window.innerHeight) {
+      rotateScreen.classList.remove('d-none');
+    } else {
+      rotateScreen.classList.add('d-none');
+    }
+  }
+}
 
 function checkHomeScreen(screenType) {
   if (screenType === 'mobile') {
