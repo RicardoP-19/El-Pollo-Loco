@@ -54,29 +54,26 @@ addEventListener('keyup', (event) => {
 
 function toggleFullscreen() {
   const element = document.getElementById('fullscreen');
-  const menuButtons = document.getElementById('fullScreenMenu');
   const gameEndImage = document.getElementById('gameWindow');
   const image = document.getElementById('fullScreenImage');
   if (!document.fullscreenElement) {
       openFullscreen(element);
-      fullscreenImage(element, menuButtons, gameEndImage, image);
+      fullscreenImage(element, gameEndImage, image);
   } else {
       closeFullscreen();
-      minimalImages(element, menuButtons, gameEndImage, image);
+      minimalImages(element, gameEndImage, image);
   }
 }
 
-function fullscreenImage(element, menuButtons, gameEndImage, image) {
+function fullscreenImage(element, gameEndImage, image) {
   if(image) image.src = 'assets/icon/minimumscreen.png';
   element.classList.add('fullscrenn');
-  menuButtons.classList.add('fullscreen-menu');
   gameEndImage.classList.add('win-lose-fullscreen');
 }
 
-function minimalImages(element, menuButtons, gameEndImage, image) {
+function minimalImages(element, gameEndImage, image) {
   if(image) image.src = 'assets/icon/fullscreen.png';
   element.classList.remove('fullscrenn');
-  menuButtons.classList.remove('fullscreen-menu');
   gameEndImage.classList.remove('gameWindow');
 }
 

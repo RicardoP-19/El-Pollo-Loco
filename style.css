@@ -80,12 +80,6 @@ body {
   border-radius: 33px;
 }
 
-.game-menu-content {
-  display: flex;
-  justify-content: right;
-  width: 100%;
-}
-
 footer {
   position: absolute;
   bottom: 0;
