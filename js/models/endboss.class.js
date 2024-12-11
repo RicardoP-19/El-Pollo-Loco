@@ -80,7 +80,7 @@ class Endboss extends MovableObject {
   checkDead() {
     let deadInterval = setInterval(() => {
       if (this.isDead()) {
-        this.gameEnded();        
+        this.gameEnded();      
       }
       world.pushIntervall(deadInterval);
     }, 60);

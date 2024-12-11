@@ -28,6 +28,7 @@ class ThrowableObject extends MovableObject {
     this.width = 70;
     this.height = 80;
     this.world = world;
+    this.bottleThrowingDirection();
     this.throw()
   }
 
@@ -43,9 +44,24 @@ class ThrowableObject extends MovableObject {
     }, 30);
   }
 
-  bottleThrowing() {
-    this.x += 10;
+   bottleThrowing() {
+    if (this.world.character.otherDirection) {
+        this.x -= 10;
+    } else {
+        this.x += 10;
+    }
     this.playAnimation(this.IMAGES_ROTATION);
+  }
+
+  bottleThrowingDirection() {
+    if (!this.world || !this.world.character) {
+      return;
+    } if (this.world.character.otherDirection) {
+      this.x = this.world.character.x - 20 ;
+    } else {
+      this.x = this.world.character.x + this.world.character.width - 50;
+    }
+    this.y = this.world.character.y + 80;
   }
 
   bottleSplashFloor(interval) {
