@@ -245,7 +245,6 @@ function startGame() {
   }
   gameStarted = true;
   init();
-  setTimeout(() => {document.getElementById('screenAndSound').classList.remove('d-none')}, 500);
 }
 
 function initMobileScreen() {
@@ -260,7 +259,8 @@ function initDesktopScreen() {
   document.getElementById('menuBtn').classList.add('d-none');
   document.getElementById('imprint').classList.add('d-none');
   document.getElementById('gameContainer').classList.remove('d-none');
-  document.getElementById('canvas').classList.remove('d-none');
+  document.getElementById('canvas').classList.remove('d-none');  
+  setTimeout(() => {document.getElementById('screenAndSound').classList.remove('d-none')}, 500);
 }
 
 function gameEndMobileButtons() {
