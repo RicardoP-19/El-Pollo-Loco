@@ -229,6 +229,7 @@ class World {
   stopGame(ended) {
     this.stoppAllInterval();
     this.showEndScreen(ended);
+    this.toggleBackgroundMusic(false);
   }
 
   showEndScreen(ended) {

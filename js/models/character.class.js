@@ -95,7 +95,7 @@ class Character extends MovableObject {
   }
 
   setIdleState() {
-    setInterval(() => {
+    let idleInterval = setInterval(() => {
       if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.isAboveGround()) {
         if (this.idleTime < 5000) {         
           this.playAnimation(this.IMAGES_IDLE);
@@ -106,6 +106,7 @@ class Character extends MovableObject {
       } else {
         this.idleTime = 0;
       }
+      world.pushIntervall(idleInterval);
     }, 300);
   }
 
@@ -143,7 +144,6 @@ class Character extends MovableObject {
   gameOver(characterInterval) {
     this.playAnimation(this.IMAGES_DEAD);
     this.stopAnimation(characterInterval);
-    this.world.level.endboss[0].dead = true;
     setTimeout(() => {world.stopGame('lose')}, 1000);
   }
 }
