@@ -1,6 +1,6 @@
 class Character extends MovableObject {
   y = 165;
-  height = 270;
+  height = 260;
   speed = 7;
   world;
   hurt = new Audio('assets/audio/hurt.mp3');

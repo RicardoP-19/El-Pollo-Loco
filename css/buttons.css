@@ -237,3 +237,42 @@ button:hover {
     hsl(200deg 45% 81%) 100%
   );
 }
+
+.mobil-play-btn-container {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  height: 100%;
+  bottom: 45px;
+  padding: 0 24px;
+}
+
+.play-btn-content {
+  display: flex;
+  gap: 29px;
+}
+
+.play-mobil-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50px;
+	color: white;
+  border: 3px dashed white;
+  background-image: linear-gradient(
+    0deg,
+    hsl(20deg 100% 29%) 0%,
+    hsl(18deg 69% 36%) 18%,
+    hsl(20deg 60% 40%) 26%,
+    hsl(22deg 54% 43%) 33%,
+    hsl(23deg 50% 45%) 39%,
+    hsl(25deg 47% 48%) 44%,
+    hsl(26deg 45% 50%) 50%,
+    hsl(28deg 47% 52%) 56%,
+    hsl(29deg 49% 54%) 61%,
+    hsl(30deg 52% 56%) 67%,
+    hsl(31deg 54% 58%) 74%,
+    hsl(32deg 57% 60%) 82%,
+    hsl(33deg 60% 62%) 100%
+  );
+}

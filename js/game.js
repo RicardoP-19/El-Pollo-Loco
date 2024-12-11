@@ -52,6 +52,21 @@ addEventListener('keyup', (event) => {
   }
 });
 
+function initTouchControls() {
+  const buttons = {
+    leftBtn: 'LEFT',
+    rightBtn: 'RIGHT',
+    upBtn: 'UP',
+    bottleBtn: 'D'
+  };
+  
+  Object.keys(buttons).forEach(btnId => {
+    const btn = document.getElementById(btnId);
+    btn.addEventListener('touchstart', () => keyboard[buttons[btnId]] = true);
+    btn.addEventListener('touchend', () => keyboard[buttons[btnId]] = false);
+  });
+}
+
 function toggleFullscreen() {
   const element = document.getElementById('fullscreen');
   const gameEndImage = document.getElementById('gameWindow');
@@ -222,14 +237,30 @@ function returnToMobileMenu() {
 }
 
 function startGame() {
+  if (getScreenType() === 'mobile') {
+    initMobileScreen();
+    initTouchControls();
+  } else {
+    initDesktopScreen();
+  }
+  gameStarted = true;
+  init();
+  setTimeout(() => {document.getElementById('screenAndSound').classList.remove('d-none')}, 500);
+}
+
+function initMobileScreen() {
+  document.getElementById('start').classList.add('d-none');
+  document.getElementById('gameContainer').classList.remove('d-none');
+  document.getElementById('canvas').classList.remove('d-none');
+  setTimeout(() => {document.getElementById('mobilPlayBtn').classList.remove('d-none')}, 500);
+}
+
+function initDesktopScreen() {
   document.getElementById('start').classList.add('d-none');
   document.getElementById('menuBtn').classList.add('d-none');
   document.getElementById('imprint').classList.add('d-none');
   document.getElementById('gameContainer').classList.remove('d-none');
   document.getElementById('canvas').classList.remove('d-none');
-  gameStarted = true;
-  init();
-  setTimeout(() => {document.getElementById('screenAndSound').classList.remove('d-none')}, 500);
 }
 
 function gameEndMobileButtons() {
