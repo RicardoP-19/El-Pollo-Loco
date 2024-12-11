@@ -1,7 +1,7 @@
 class Chicken extends MovableObject{
   y = 369;
   width = 70;
-  height = 60;
+  height = 50;
   isDead = false;
   chicken_sound = new Audio('assets/audio/chicken.mp3');
   

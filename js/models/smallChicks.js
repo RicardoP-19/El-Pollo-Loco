@@ -1,7 +1,7 @@
 class SmallChicken extends MovableObject{
   y = 380;
   width = 35;
-  height = 45;
+  height = 40;
   isDead = false;
   smallChicken = new Audio('assets/audio/small_chicken.mp3');
   

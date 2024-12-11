@@ -238,6 +238,7 @@ class World {
   }
 
   endScreenChoose(ended) {
+    document.getElementById('mobilPlayBtn').classList.add('d-none')
     document.getElementById('screenAndSound').classList.add('d-none');
     document.getElementById('endScreen').classList.remove('d-none');
     let endScreen = document.getElementById('endScreen');
