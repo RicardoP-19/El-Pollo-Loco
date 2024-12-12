@@ -16,17 +16,6 @@ body {
   font-size: 37px;
 }
 
-.game-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  height: 100%;
-  max-width: 720px;
-  max-height: 480px;
-}
-
 .canvas {
   position: absolute;
   top: 50%;
@@ -61,12 +50,21 @@ body {
   background-image: url('assets/img/9_intro_outro_screens/start/wandet.jpg');
   background-position: center;
   background-size: cover;
-  width: 100%;
-  height: 100%;
   max-width: 720px;
   max-height: 480px;
   border-radius: 33px;
   filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.539));
+}
+
+.game-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  max-width: 720px;
+  max-height: 480px;
 }
 
 .end-screen {
@@ -96,12 +94,7 @@ footer {
 
 .rotateScreen {
   position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   top: 0;
-  width: 100%;
-  height: 100%;
   z-index: 9999;
   background-color: white;
 }

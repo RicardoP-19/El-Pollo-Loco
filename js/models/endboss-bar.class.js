@@ -10,7 +10,6 @@ class EndbossBar extends DrawableObject {
     'assets/img/7_statusbars/2_statusbar_endboss/blue/100.png'
   ];
 
-
   constructor() {
     super();
     this.loadImages(this.IMAGES);

@@ -10,7 +10,6 @@ class CoinBar extends DrawableObject {
     'assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/100.png'
   ];
 
-
   constructor() {
     super();
     this.loadImages(this.IMAGES);

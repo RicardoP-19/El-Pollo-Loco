@@ -10,7 +10,6 @@ class BottleBar extends DrawableObject {
     'assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/100.png'
   ];
 
-
   constructor() {
     super();
     this.loadImages(this.IMAGES);
