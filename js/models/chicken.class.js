@@ -21,6 +21,10 @@ class Chicken extends MovableObject{
     this.animate();
   }
 
+  /**
+  * Starts the animation and movement for the chicken.
+  * The chicken moves left across the screen at a random speed. The animation for walking is also handled in intervals.
+  */
   animate() {
     let chickInterval = setInterval(() => {
       if (!this.isDead && gameStarted) {
@@ -29,6 +33,7 @@ class Chicken extends MovableObject{
       }
       world.pushIntervall(chickInterval);
     }, 1000 / 60);
+    
     let chickAnimationInterval = setInterval(() => {
       if (!this.isDead && gameStarted) {
         this.playAnimation(this.IMAGES_WALKING);

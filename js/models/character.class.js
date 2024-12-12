@@ -87,12 +87,21 @@ class Character extends MovableObject {
     this.animate();
   }
 
+  /**
+  * Starts the animation and updates the character's state by setting idle, movement, and action animations.
+  * This function controls how the character behaves while idle, moving, or performing actions like jumping or being hurt.
+  */
   animate() {
     this.setIdleState();
     this.movingCharacter();
     this.movingCharacterAnimation();
   }
 
+  /**
+  * Handles the idle state of the character.
+  * The character remains idle until it starts moving or jumping. After 5 seconds, it switches to a long idle animation.
+  * The function runs at intervals to check and update the character's idle state.
+  */
   setIdleState() {
     let idleInterval = setInterval(() => {
       if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.isAboveGround()) {
@@ -109,6 +118,11 @@ class Character extends MovableObject {
     }, 300);
   }
 
+  /**
+  * Handles the movement of the character when pressing arrow keys or space.
+  * The character moves left or right when the corresponding arrow keys are pressed, and jumps when the space bar or up arrow is pressed.
+  * The camera follows the character's movement.
+  */
   movingCharacter() {
     let characterMove = setInterval(() => {
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
@@ -124,6 +138,10 @@ class Character extends MovableObject {
     }, 1000 / 60);
   }
 
+  /**
+  * Updates the character's animation based on its state (jumping, walking, hurt, dead).
+  * The function ensures that the correct animation is played depending on whether the character is in the air, walking, hurt, or dead.
+  */
   movingCharacterAnimation() {
     let characterInterval = setInterval(() => {
       if (this.isAboveGround()) {
@@ -140,6 +158,11 @@ class Character extends MovableObject {
     }, 60);
   }
 
+  /**
+   * Executes when the character is dead. It plays the dead animation and stops the character's movement.
+   * After a short delay, the game will be marked as lost.
+   * @param {Interval} characterInterval - The interval ID for the character's animation loop, used to stop the animation when the character is dead.
+   */
   gameOver(characterInterval) {
     this.playAnimation(this.IMAGES_DEAD);
     this.stopAnimation(characterInterval);

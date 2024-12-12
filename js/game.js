@@ -4,12 +4,18 @@ let keyboard = new Keyboard();
 let gameStarted = false;
 let isMenuVisible = false;
 
+/**
+ * Initializes the game by setting up the canvas and the game world.
+ */
 function init() {
   initLevel();
   canvas =  document.getElementById('canvas');
   world = new World(canvas, keyboard);
 }
 
+/**
+ * Adds event listeners for keyboard inputs.
+ */
 addEventListener('keydown', (event) => {
   if (event.keyCode == 32) {
     keyboard.SPACE = true;
@@ -52,6 +58,9 @@ addEventListener('keyup', (event) => {
   }
 });
 
+/**
+ * Initializes touch controls for mobile devices.
+ */
 function initTouchControls() {
   const buttons = {
     leftBtn: 'LEFT',
@@ -67,6 +76,9 @@ function initTouchControls() {
   });
 }
 
+/**
+ * Toggles fullscreen mode for the game.
+ */
 function toggleFullscreen() {
   const element = document.getElementById('fullscreen');
   const gameEndImage = document.getElementById('gameWindow');
@@ -80,18 +92,34 @@ function toggleFullscreen() {
   }
 }
 
+/**
+ * Updates UI elements for fullscreen mode.
+ * @param {HTMLElement} element - The fullscreen container element.
+ * @param {HTMLElement} gameEndImage - The game window element.
+ * @param {HTMLElement} image - The fullscreen toggle image.
+ */
 function fullscreenImage(element, gameEndImage, image) {
   if(image) image.src = 'assets/icon/minimumscreen.png';
   element.classList.add('fullscrenn');
   gameEndImage.classList.add('win-lose-fullscreen');
 }
 
+/**
+ * Updates UI elements for minimized screen mode.
+ * @param {HTMLElement} element - The fullscreen container element.
+ * @param {HTMLElement} gameEndImage - The game window element.
+ * @param {HTMLElement} image - The fullscreen toggle image.
+ */
 function minimalImages(element, gameEndImage, image) {
   if(image) image.src = 'assets/icon/fullscreen.png';
   element.classList.remove('fullscrenn');
   gameEndImage.classList.remove('gameWindow');
 }
 
+/**
+ * Requests fullscreen for a given element.
+ * @param {HTMLElement} element - The element to request fullscreen.
+ */
 function openFullscreen(element) {
   if(element.requestFullscreen) {
     element.requestFullscreen();
@@ -102,6 +130,9 @@ function openFullscreen(element) {
   }
 }
 
+/**
+ * Exits fullscreen mode.
+ */
 function closeFullscreen() {
   if(document.exitFullscreen) {
     document.exitFullscreen();
@@ -110,10 +141,17 @@ function closeFullscreen() {
   }
 }
 
+/**
+ * Determines the screen type based on window dimensions.
+ * @returns {string} "mobile" or "desktop".
+ */
 function getScreenType() {
   return (window.innerWidth < 740 || window.innerHeight < 700) ? 'mobile' : 'desktop';
 }
 
+/**
+ * Handles screen resizing events to adjust UI and controls.
+ */
 window.addEventListener('resize', () => {
   const screenType = getScreenType();
   checkRotateScreen()
@@ -122,6 +160,9 @@ window.addEventListener('resize', () => {
   openGameButtons(screenType);
 });
 
+/**
+ * Handles the load event to initialize the game UI.
+ */
 window.addEventListener('load', () => {
   const screenType = getScreenType();
   checkRotateScreen()
@@ -130,6 +171,9 @@ window.addEventListener('load', () => {
   openGameButtons(screenType);
 });
 
+/**
+ * Checks and adjusts the UI for screen rotation on mobile devices.
+ */
 function checkRotateScreen() {
   const screenType = getScreenType();
   const rotateScreen = document.getElementById('rotateScreen');
@@ -142,6 +186,10 @@ function checkRotateScreen() {
   }
 }
 
+/**
+ * Adjusts the home screen UI based on screen type.
+ * @param {string} screenType - "mobile" or "desktop".
+ */
 function checkHomeScreen(screenType) {
   if (screenType === 'mobile') {
     mobileHomeScreen();
@@ -150,12 +198,20 @@ function checkHomeScreen(screenType) {
   }
 }
 
+/**
+ * Adjusts the menu screen UI on resize if the menu is visible.
+ * @param {string} screenType - "mobile" or "desktop".
+ */
 function checkMenuScreenOnResize(screenType) {
   if (isMenuVisible) {
     checkMenuScreen(screenType);
   }
 }
 
+/**
+ * Opens the menu UI based on screen type.
+ * @param {string} screenType - "mobile" or "desktop".
+ */
 function checkMenuScreen(screenType) {
   if (screenType === 'mobile') {
     openMobileMenu();
@@ -164,6 +220,10 @@ function checkMenuScreen(screenType) {
   }
 }
 
+/**
+ * Opens game buttons depending on the screen type.
+ * @param {string} screenType - "mobile" or "desktop".
+ */
 function openGameButtons(screenType) {
   if (world && world.gameEnd) {
     if (screenType === 'mobile') {
@@ -174,6 +234,9 @@ function openGameButtons(screenType) {
   }
 }
 
+/**
+ * Displays the mobile version of the home screen.
+ */
 function mobileHomeScreen() {
   document.getElementById('headline').classList.add('d-none');
   document.getElementById('menuBtn').classList.add('d-none');
@@ -182,6 +245,9 @@ function mobileHomeScreen() {
   document.getElementById('mobileImprint').classList.remove('d-none');
 }
 
+/**
+ * Displays the desktop version of the home screen.
+ */
 function desktopHomeScreen() {
   document.getElementById('mobileMenuBtn').classList.add('d-none');
   document.getElementById('mobileImprint').classList.add('d-none');
@@ -192,6 +258,9 @@ function desktopHomeScreen() {
   }
 }
 
+/**
+ * Opens the desktop version of the menu.
+ */
 function openMenu() {
   isMenuVisible = true;
   document.getElementById('start').classList.add('d-none');
@@ -200,6 +269,9 @@ function openMenu() {
   document.getElementById('infoBtn').classList.remove('d-none');
 }
 
+/**
+ * Opens the mobile version of the menu.
+ */
 function openMobileMenu() {
   isMenuVisible = true;
   document.getElementById('start').classList.add('d-none');
@@ -208,16 +280,25 @@ function openMobileMenu() {
   document.getElementById('infoBtnMobile').classList.remove('d-none');
 }
 
+/**
+ * Opens the story screen.
+ */
 function openStory() {
   document.getElementById('control').classList.add('d-none');
   document.getElementById('story').classList.remove('d-none');
 }
 
+/**
+ * Opens the control screen.
+ */
 function openControl() {
   document.getElementById('control').classList.remove('d-none');
   document.getElementById('story').classList.add('d-none');
 }
 
+/**
+ * Returns to the desktop menu from the current UI.
+ */
 function returnToMenu() {
   isMenuVisible = false;
   document.getElementById('menu').classList.add('d-none');
@@ -226,6 +307,9 @@ function returnToMenu() {
   document.getElementById('menuBtn').classList.remove('d-none');
 }
 
+/**
+ * Returns to the mobile menu from the current UI.
+ */
 function returnToMobileMenu() {
   isMenuVisible = false;
   document.getElementById('menu').classList.add('d-none');
@@ -236,6 +320,9 @@ function returnToMobileMenu() {
   document.getElementById('start').classList.remove('d-none');
 }
 
+/**
+ * Starts the game by initializing necessary screens and controls.
+ */
 function startGame() {
   if (getScreenType() === 'mobile') {
     initMobileScreen();
@@ -247,6 +334,9 @@ function startGame() {
   init();
 }
 
+/**
+ * Initializes the mobile screen layout for the game.
+ */
 function initMobileScreen() {
   document.getElementById('start').classList.add('d-none');
   document.getElementById('gameContainer').classList.remove('d-none');
@@ -254,6 +344,9 @@ function initMobileScreen() {
   setTimeout(() => {document.getElementById('mobilPlayBtn').classList.remove('d-none')}, 500);
 }
 
+/**
+ * Initializes the desktop screen layout for the game.
+ */
 function initDesktopScreen() {
   document.getElementById('start').classList.add('d-none');
   document.getElementById('menuBtn').classList.add('d-none');
@@ -263,16 +356,26 @@ function initDesktopScreen() {
   setTimeout(() => {document.getElementById('screenAndSound').classList.remove('d-none')}, 500);
 }
 
+/**
+ * Displays the game end buttons for mobile devices.
+ */
 function gameEndMobileButtons() {
   document.getElementById('gameEndMobil').classList.remove('d-none');
   document.getElementById('gameEnd').classList.add('d-none');
 }
+
+/**
+ * Displays the game end buttons for desktop devices.
+ */
 
 function gameEndDesktopButtons() {
   document.getElementById('gameEndMobil').classList.add('d-none');
   document.getElementById('gameEnd').classList.remove('d-none');
 }
 
+/**
+ * Restarts the game after it ends.
+ */
 function restartGame() {
   gameStarted = false;
   world.gameEnd = false;
@@ -280,6 +383,9 @@ function restartGame() {
   startGame();
 }
 
+/**
+ * Exits the game and returns to the appropriate menu screen.
+ */
 function exitGame() {
   gameStarted = false;
   world.gameEnd = false;
@@ -293,6 +399,9 @@ function exitGame() {
   }
 }
 
+/**
+ * Closes the end screen and resets relevant UI elements.
+ */
 function closeEndScreen() {
   document.getElementById('canvas').classList.add('d-none');
   document.getElementById('endScreen').classList.add('d-none');
@@ -300,6 +409,9 @@ function closeEndScreen() {
   document.getElementById('gameEndMobil').classList.add('d-none');
 }
 
+/**
+ * Displays the imprint on desktop devices.
+ */
 function openImprint() {
   document.getElementById('start').classList.add('d-none');
   document.getElementById('menuBtn').classList.add('d-none');
@@ -307,6 +419,9 @@ function openImprint() {
   document.getElementById('imprintContainer').classList.remove('d-none');
 }
 
+/**
+ * Closes the imprint screen and returns to the appropriate menu.
+ */
 function closeImprint() {
   document.getElementById('imprintContainer').classList.add('d-none');
   const screenType = getScreenType();

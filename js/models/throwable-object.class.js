@@ -32,6 +32,9 @@ class ThrowableObject extends MovableObject {
     this.throw()
   }
 
+  /**
+  * @description Initiates the throwing action, applying gravity to the object and making it fall after reaching a certain height.
+  */
   throw() {
     this.speedY = 25;
     this.applyGravity();
@@ -44,15 +47,21 @@ class ThrowableObject extends MovableObject {
     }, 30);
   }
 
-   bottleThrowing() {
-    if (this.world.character.otherDirection) {
-        this.x -= 10;
-    } else {
-        this.x += 10;
-    }
-    this.playAnimation(this.IMAGES_ROTATION);
+  /**
+  * @description Handles the bottle throwing animation and movement.
+  */
+  bottleThrowing() {
+   if (this.world.character.otherDirection) {
+       this.x -= 10;
+   } else {
+       this.x += 10;
+   }
+   this.playAnimation(this.IMAGES_ROTATION);
   }
 
+  /**
+  * @description Sets the initial direction of the bottle based on the character's orientation.
+  */
   bottleThrowingDirection() {
     if (!this.world || !this.world.character) {
       return;
@@ -64,6 +73,10 @@ class ThrowableObject extends MovableObject {
     this.y = this.world.character.y + 80;
   }
 
+  /**
+  * @description Handles the bottle splash animation and the interaction when the bottle hits the ground.
+  * @param {number} interval - The interval ID used to clear the throwing animation when the bottle hits the ground.
+  */
   bottleSplashFloor(interval) {
     clearInterval(interval);
     if (world.soundEnabled) {

@@ -68,6 +68,10 @@ class Endboss extends MovableObject {
     this.checkDead();
   }
 
+  /**
+  * Checks if the Endboss is hurt and plays the hurt animation.
+  * This function runs continuously at a set interval.
+  */
   checkHurt() {
     let hurtInterval = setInterval(() => {
       if (this.isHurt()) {
@@ -77,6 +81,10 @@ class Endboss extends MovableObject {
     }, 60);
   }
 
+  /**
+  * Checks if the Endboss is dead and triggers the end game if true.
+  * This function runs continuously at a set interval.
+  */
   checkDead() {
     let deadInterval = setInterval(() => {
       if (this.isDead()) {
@@ -86,6 +94,10 @@ class Endboss extends MovableObject {
     }, 60);
   }
 
+  /**
+  * Handles the game over sequence when the Endboss dies, including playing the dead animation 
+  * and stopping the background music, followed by a win screen.
+  */
   gameEnded() {
     this.dead = true;
     this.playAnimation(this.IMAGES_DEAD);
@@ -96,6 +108,10 @@ class Endboss extends MovableObject {
     }, this.IMAGES_DEAD.length * 60);
   }
 
+  /**
+  * Starts the alert sequence for the Endboss, which triggers an alert animation and sound,
+  * and then starts the moving sequence after a brief delay.
+  */
   startAlert() {
     if (!this.isMoving && !this.alerted && !this.gameEnd) {
       this.setAlertAndMoving();
@@ -105,17 +121,28 @@ class Endboss extends MovableObject {
     }
   }
 
+  /**
+  * Sets the Endboss to alerted and moving states.
+  * This function is called when the Endboss starts its alert phase.
+  */
   setAlertAndMoving() {
     this.alerted = true;
     this.isMoving = true;
   }
 
+  /**
+  * Plays and stops the alert animation for the Endboss at a set interval.
+  */
   playAndStopAnimation() {
     let alertInterval = setInterval(() => {this.playAnimation(this.IMAGES_ALERT)}, 200);
     this.stopAnimation(alertInterval);
     world.pushIntervall(alertInterval);
   }
 
+  /**
+  * Starts the Endboss' movement phase, including playing movement sounds, 
+  * triggering walking animation, and starting an attack phase after a delay.
+  */
   startMoving() {
     if (!this.dead) {
       if (world.soundEnabled) {
@@ -127,6 +154,9 @@ class Endboss extends MovableObject {
     }
   }
 
+  /**
+  * Moves the Endboss left at a constant speed, running at regular intervals.
+  */
   Moving() {
     this.isMoving = true;
     let movingInterval = setInterval(() => {
@@ -138,6 +168,10 @@ class Endboss extends MovableObject {
     }, 1000 / 10);
   }
 
+  /**
+  * Plays the walking animation for the Endboss at a set interval.
+  * The animation runs for a short duration during the movement phase.
+  */
   movingAnimation() {
     let moveAnimationInterval = setInterval(() => {
       this.playAnimation(this.IMAGES_WALKING); 
@@ -146,6 +180,10 @@ class Endboss extends MovableObject {
     setTimeout(() => {this.stopAnimation(moveAnimationInterval)}, 3000);
   }
 
+  /**
+  * Starts the Endboss' attack phase, including playing the attack animation
+  * and stopping the movement before returning to movement after a delay.
+  */
   startAttack() {
     if (!this.dead) {
       this.isMoving = false;
@@ -155,6 +193,9 @@ class Endboss extends MovableObject {
     }
   }
 
+  /**
+  * Plays the attack animation for the Endboss at regular intervals during the attack phase.
+  */
   attackAnimation() {
     let startInterval = setInterval(() => {
       this.playAnimation(this.IMAGES_ATTACK);        
