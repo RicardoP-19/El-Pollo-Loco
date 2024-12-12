@@ -8,7 +8,7 @@ class Character extends MovableObject {
   idleTime = 0;
   offset = {
     top: 100,
-    left: 25,
+    left: 40,
     right: 30,
     bottom: 0
   };

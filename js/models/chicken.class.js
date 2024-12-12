@@ -4,6 +4,12 @@ class Chicken extends MovableObject{
   height = 50;
   isDead = false;
   chicken_sound = new Audio('assets/audio/chicken.mp3');
+  offset = {
+    top: -15,
+    left: 0,
+    right: 0,
+    bottom: 0
+  };
   
   IMAGES_WALKING = [
     'assets/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png',

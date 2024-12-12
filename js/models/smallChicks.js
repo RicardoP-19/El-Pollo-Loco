@@ -4,6 +4,12 @@ class SmallChicken extends MovableObject{
   height = 40;
   isDead = false;
   smallChicken = new Audio('assets/audio/small_chicken.mp3');
+  offset = {
+    top: -15,
+    left: -5,
+    right: -5,
+    bottom: 0
+  };
   
   IMAGES_WALKING = [
     'assets/img/3_enemies_chicken/chicken_small/1_walk/1_w.png',

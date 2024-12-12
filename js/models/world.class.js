@@ -27,6 +27,7 @@ class World {
     this.draw();
     this.setWorld();
     this.run();
+    this.checkCollisions();
     this.gameMusic();
   }
 
@@ -44,10 +45,10 @@ class World {
   * @description Starts the game loop and periodically checks collisions and other game interactions.
   */
   run() {
-    setInterval(() => {
-      this.checkCollisions();
+    let runInterval = setInterval(() => {
       this.checkThrowObjects();
       this.checkEndbossBar();
+      this.pushIntervall(runInterval);
     }, 200)
   }
 
@@ -55,11 +56,14 @@ class World {
   * @description Checks collisions between the character and other objects like enemies, coins, bottles, etc.
   */
   checkCollisions() {
-    this.characterAndChicken();
-    this.collisionsBottle();
-    this.characterAndCoins();
-    this.characterAndBottles();
-    this.characterAndEndboss();
+    let collisionInterval = setInterval(() => {
+      this.characterAndChicken();
+      this.collisionsBottle();
+      this.characterAndCoins();
+      this.characterAndBottles();
+      this.characterAndEndboss();
+      this.pushIntervall(collisionInterval);
+    }, 30);
   }
 
   /**
@@ -86,7 +90,7 @@ class World {
     const characterBottom = this.character.y + this.character.height;
     const enemyTop = enemy.y - enemy.height;
     const isFalling = this.character.speedY < 0;
-    return  isFalling && characterBottom >= enemyTop - 40 && 
+    return  isFalling && characterBottom >= enemyTop -40 && 
             this.character.x + this.character.width > enemy.x &&
             this.character.x < enemy.x + enemy.width;
   }
@@ -105,9 +109,7 @@ class World {
       enemy.loadImage(enemy.IMAGE_DEAD[0]);
       this.playSound('chicken');
     }
-    setTimeout(() => {
-        this.level.enemies = this.level.enemies.filter(element => element !== enemy);
-    }, 100);  
+    setTimeout(() => {this.level.enemies = this.level.enemies.filter(element => element !== enemy)}, 30);  
   }
 
   /**
@@ -123,12 +125,13 @@ class World {
   */
   collisionsBottle() {
     this.ThrowableObject.forEach((bottle) => { 
-      let interval = setInterval(() => {
+      let bottelInterval = setInterval(() => {
         if (this.level.endboss[0].isColliding(bottle)) {
           bottle.bottleSplashFloor(interval);
           this.level.endboss[0].hit();
           this.endbossBar.setPercentage(this.level.endboss[0].energy);
         }
+        this.pushIntervall(bottelInterval);
       }, 1000 / 150)
     })
   }
