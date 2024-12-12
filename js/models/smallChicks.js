@@ -22,6 +22,10 @@ class SmallChicken extends MovableObject{
     this.animate();
   }
 
+  /**
+  * Creates an instance of SmallChicken, initializes its properties and starts its animation.
+  * Loads walking images, dead images, and sets a random starting position and speed.
+  */
   animate() {
     let smallChickInterval = setInterval(() => {
       if (!this.isDead && gameStarted) {
@@ -30,6 +34,7 @@ class SmallChicken extends MovableObject{
       }
       world.pushIntervall(smallChickInterval);
     }, 1000 / 60);
+
     let smallChickenAnimteInterval = setInterval(() => {
       if (!this.isDead && gameStarted) {
         this.playAnimation(this.IMAGES_WALKING);

@@ -1,5 +1,18 @@
 let level1;
 
+/**
+ * Initializes the game level by creating various objects, such as chickens, small chickens, endboss, clouds, coins, bottles, and background objects.
+ * This function sets up the initial state for the level, which is an array of game elements that will appear on screen.
+ * 
+ * It creates:
+ * - 6 regular chickens
+ * - 7 small chickens
+ * - 1 endboss
+ * - 5 clouds
+ * - 13 coins
+ * - 15 bottles
+ * - 20 background objects from different layers for the game's background.
+ */
 function initLevel() {
   level1 = new Level(
     [
