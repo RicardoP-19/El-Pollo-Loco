@@ -10,7 +10,6 @@ class StatusBar extends DrawableObject {
     'assets/img/7_statusbars/1_statusbar/2_statusbar_health/blue/100.png'
   ];
 
-
   constructor() {
     super();
     this.loadImages(this.IMAGES);

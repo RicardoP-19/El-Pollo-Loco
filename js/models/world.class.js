@@ -113,7 +113,7 @@ class World {
       this.level.coins.splice(index, 1);
       this.coinBar.setPercentage(this.coinBar.percentage + 10);         
       }
-     });
+    });
   }
 
   characterAndBottles() {
@@ -124,7 +124,7 @@ class World {
       this.bottleBar.setPercentage(this.bottleBar.percentage + 10);
       this.collectedBottles++;             
       }
-     });
+    });
   }
 
   characterAndEndboss() {

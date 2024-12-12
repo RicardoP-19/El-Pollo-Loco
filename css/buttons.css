@@ -249,7 +249,6 @@ button:hover {
 }
 
 .play-btn-content {
-  display: flex;
   gap: 29px;
 }
 

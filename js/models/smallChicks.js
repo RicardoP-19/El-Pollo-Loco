@@ -30,7 +30,6 @@ class SmallChicken extends MovableObject{
       }
       world.pushIntervall(smallChickInterval);
     }, 1000 / 60);
-
     let smallChickenAnimteInterval = setInterval(() => {
       if (!this.isDead && gameStarted) {
         this.playAnimation(this.IMAGES_WALKING);

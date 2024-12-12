@@ -29,7 +29,6 @@ class Chicken extends MovableObject{
       }
       world.pushIntervall(chickInterval);
     }, 1000 / 60);
-
     let chickAnimationInterval = setInterval(() => {
       if (!this.isDead && gameStarted) {
         this.playAnimation(this.IMAGES_WALKING);

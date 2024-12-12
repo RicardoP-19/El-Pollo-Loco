@@ -13,7 +13,6 @@ class Character extends MovableObject {
     bottom: 0
   };
 
-
   IMAGES_JUMPING = [
     'assets/img/2_character_pepe/3_jump/J-31.png',
     'assets/img/2_character_pepe/3_jump/J-32.png',
