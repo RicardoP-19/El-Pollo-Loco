@@ -14,7 +14,7 @@ class World {
   ThrowableObject = [];
   intervalIds = [];
   collectedBottles = 0;
-  soundEnabled = true;
+  soundEnabled = false;
   backgroundMusic;
   gameEnd = false;
 
@@ -23,7 +23,6 @@ class World {
     this.ctx = canvas.getContext('2d');
     this.canvas = canvas;
     this.keyboard = keyboard;
-    this.soundEnabled = true;
     this.draw();
     this.setWorld();
     this.run();
@@ -307,9 +306,10 @@ class World {
   * @param {string} ended - The outcome of the game, either 'win' or 'lose'.
   */
   stopGame(ended) {
+    this.toggleBackgroundMusic(false);
     this.stoppAllInterval();
     this.showEndScreen(ended);
-    this.toggleBackgroundMusic(false);
+    // this.resetWorld();
   }
 
   /**
@@ -351,19 +351,22 @@ class World {
   }
 
   /**
+  * @description Adds a new interval to the list of active intervals for later management.
+  * @param {number} interval - The interval ID to be added.
+  */
+  pushIntervall(interval) {  
+    world.intervalIds.push(interval);
+    // console.log(world.intervalIds); 
+  }
+
+  /**
   * @description Stops all ongoing intervals in the game to halt any active actions.
   */
   stoppAllInterval() {
     this.intervalIds.forEach(clearInterval);
     this.intervalIds = [];
-  }
-
-  /**
-  * @description Adds a new interval to the list of active intervals for later management.
-  * @param {number} interval - The interval ID to be added.
-  */
-  pushIntervall(interval) {
-    world.intervalIds.push(interval); 
+    // console.log(this.intervalIds);
+    
   }
 
   /**

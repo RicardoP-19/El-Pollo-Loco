@@ -5,12 +5,75 @@ let gameStarted = false;
 let isMenuVisible = false;
 
 /**
+ * Starts the game by initializing necessary screens and controls.
+ */
+function startGame() {
+  if (getScreenType() === 'mobile') {
+    initMobileScreen();
+    initTouchControls();
+  } else {
+    initDesktopScreen();
+  }
+  init();
+}
+
+/**
  * Initializes the game by setting up the canvas and the game world.
  */
 function init() {
   initLevel();
   canvas =  document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height); 
   world = new World(canvas, keyboard);
+  gameStarted = true;
+}
+
+/**
+ * Restarts the game after it ends.
+ */
+function restartGame() {
+  gameStarted = false;
+  isMenuVisible = false;
+  world.soundEnabled = false;
+  if (world) {
+    world.stoppAllInterval();
+    world = null;
+  }
+  closeEndScreen();
+  initLevel();
+  startGame();
+}
+
+/**
+ * Exits the game and returns to the appropriate menu screen.
+ */
+function exitGame() {
+  gameStarted = false;
+  isMenuVisible = false;
+  level1 = null;
+  world = null;
+  const screenType = getScreenType();
+  if (screenType === 'mobile') {
+    closeEndScreen();
+    returnToMobileMenu();
+  } else {
+    closeEndScreen();
+    returnToMenu();
+  }
+}
+
+/**
+ * Closes the imprint screen and returns to the appropriate menu.
+ */
+function closeImprint() {
+  document.getElementById('imprintContainer').classList.add('d-none');
+  const screenType = getScreenType();
+  if (screenType === 'mobile') {
+    returnToMobileMenu();
+  } else {
+    returnToMenu();
+  }
 }
 
 /**
@@ -321,20 +384,6 @@ function returnToMobileMenu() {
 }
 
 /**
- * Starts the game by initializing necessary screens and controls.
- */
-function startGame() {
-  if (getScreenType() === 'mobile') {
-    initMobileScreen();
-    initTouchControls();
-  } else {
-    initDesktopScreen();
-  }
-  gameStarted = true;
-  init();
-}
-
-/**
  * Initializes the mobile screen layout for the game.
  */
 function initMobileScreen() {
@@ -374,35 +423,11 @@ function gameEndDesktopButtons() {
 }
 
 /**
- * Restarts the game after it ends.
- */
-function restartGame() {
-  gameStarted = false;
-  world.gameEnd = false;
-  closeEndScreen();
-  startGame();
-}
-
-/**
- * Exits the game and returns to the appropriate menu screen.
- */
-function exitGame() {
-  gameStarted = false;
-  world.gameEnd = false;
-  const screenType = getScreenType();
-  if (screenType === 'mobile') {
-    closeEndScreen();
-    returnToMobileMenu();
-  } else {
-    closeEndScreen();
-    returnToMenu();
-  }
-}
-
-/**
  * Closes the end screen and resets relevant UI elements.
  */
 function closeEndScreen() {
+  document.getElementById('screenAndSound').classList.add('d-none')
+  document.getElementById('mobilPlayBtn').classList.add('d-none')
   document.getElementById('canvas').classList.add('d-none');
   document.getElementById('endScreen').classList.add('d-none');
   document.getElementById('gameEnd').classList.add('d-none');
@@ -417,17 +442,4 @@ function openImprint() {
   document.getElementById('menuBtn').classList.add('d-none');
   document.getElementById('imprint').classList.add('d-none');
   document.getElementById('imprintContainer').classList.remove('d-none');
-}
-
-/**
- * Closes the imprint screen and returns to the appropriate menu.
- */
-function closeImprint() {
-  document.getElementById('imprintContainer').classList.add('d-none');
-  const screenType = getScreenType();
-  if (screenType === 'mobile') {
-    returnToMobileMenu();
-  } else {
-    returnToMenu();
-  }
 }
