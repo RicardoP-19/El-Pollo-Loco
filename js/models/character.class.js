@@ -92,9 +92,14 @@ class Character extends MovableObject {
   * This function controls how the character behaves while idle, moving, or performing actions like jumping or being hurt.
   */
   animate() {
-    this.setIdleState();
-    this.movingCharacter();
-    this.movingCharacterAnimation();
+    let animationStarted = setInterval(() => {
+      if (this.world) {
+        this.setIdleState();
+        this.movingCharacter();
+        this.movingCharacterAnimation(); 
+      }
+      clearInterval(animationStarted);
+    }, 500);
   }
 
   /**
@@ -114,10 +119,10 @@ class Character extends MovableObject {
       } else {
         this.idleTime = 0;
       }
-      world.pushIntervall(idleInterval);
     }, 300);
+    world.pushIntervall(idleInterval);
   }
-
+  
   /**
   * Handles the movement of the character when pressing arrow keys or space.
   * The character moves left or right when the corresponding arrow keys are pressed, and jumps when the space bar or up arrow is pressed.
@@ -134,8 +139,8 @@ class Character extends MovableObject {
         world.playSound('jump');
       }
       this.world.camera_x = -this.x + 70;
-      world.pushIntervall(characterMove);
     }, 1000 / 60);
+    world.pushIntervall(characterMove);
   }
 
   /**
@@ -152,10 +157,10 @@ class Character extends MovableObject {
         this.playAnimation(this.IMAGES_HURT);
         world.playSound('hurt');
       } else if (this.isDead()) {
-        this.gameOver(characterInterval);
+        this.gameOver();
       }
-      world.pushIntervall(characterInterval);
     }, 60);
+    world.pushIntervall(characterInterval);
   }
 
   /**
@@ -163,9 +168,8 @@ class Character extends MovableObject {
    * After a short delay, the game will be marked as lost.
    * @param {Interval} characterInterval - The interval ID for the character's animation loop, used to stop the animation when the character is dead.
    */
-  gameOver(characterInterval) {
+  gameOver() {
     this.playAnimation(this.IMAGES_DEAD);
-    this.stopAnimation(characterInterval);
-    setTimeout(() => {world.stopGame('lose')}, 1000);
+    setTimeout(() => {this.world.stopGame('lose')}, 1000);
   }
 }

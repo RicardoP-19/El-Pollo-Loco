@@ -2,6 +2,7 @@ class Chicken extends MovableObject{
   y = 369;
   width = 70;
   height = 50;
+  world;
   isDead = false;
   chicken_sound = new Audio('assets/audio/chicken.mp3');
   offset = {
@@ -32,19 +33,31 @@ class Chicken extends MovableObject{
   * The chicken moves left across the screen at a random speed. The animation for walking is also handled in intervals.
   */
   animate() {
-    let chickInterval = setInterval(() => {
+    let animationChicken = setInterval(() => {    
+      if (this.world) {
+        this.chickenMoveLeft();
+        this.chickenAnimation();
+      }
+      clearInterval(animationChicken);  
+    }, 500);
+  }
+
+  chickenMoveLeft() {
+    let chickInterval = setInterval(() => {      
       if (!this.isDead && gameStarted) {
         this.moveLeft();
         this.otherDirection = false;
-      }
-      world.pushIntervall(chickInterval);
-    }, 1000 / 60);
-    
+      } 
+    }, 1000 / 60);    
+    world.pushIntervall(chickInterval);
+  }
+
+  chickenAnimation() {
     let chickAnimationInterval = setInterval(() => {
       if (!this.isDead && gameStarted) {
         this.playAnimation(this.IMAGES_WALKING);
       }
-      world.pushIntervall(chickAnimationInterval);
-    }, 170);
+    }, 170);    
+    world.pushIntervall(chickAnimationInterval);
   }
 }

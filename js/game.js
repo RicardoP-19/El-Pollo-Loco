@@ -18,30 +18,11 @@ function startGame() {
 }
 
 /**
- * Initializes the game by setting up the canvas and the game world.
- */
-function init() {
-  initLevel();
-  canvas =  document.getElementById('canvas');
-  const ctx = canvas.getContext('2d');
-  ctx.clearRect(0, 0, canvas.width, canvas.height); 
-  world = new World(canvas, keyboard);
-  gameStarted = true;
-}
-
-/**
  * Restarts the game after it ends.
  */
 function restartGame() {
-  gameStarted = false;
-  isMenuVisible = false;
-  world.soundEnabled = false;
-  if (world) {
-    world.stoppAllInterval();
-    world = null;
-  }
+  resetGame();
   closeEndScreen();
-  initLevel();
   startGame();
 }
 
@@ -49,10 +30,7 @@ function restartGame() {
  * Exits the game and returns to the appropriate menu screen.
  */
 function exitGame() {
-  gameStarted = false;
-  isMenuVisible = false;
-  level1 = null;
-  world = null;
+  resetGame();
   const screenType = getScreenType();
   if (screenType === 'mobile') {
     closeEndScreen();
@@ -61,6 +39,28 @@ function exitGame() {
     closeEndScreen();
     returnToMenu();
   }
+}
+
+function resetGame() {
+  gameStarted = false;
+  isMenuVisible = false;
+  world.soundEnabled = false;
+  world.backgroundMusic.currentTime = 0;
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  level = null;
+  world = null;
+}
+
+/**
+ * Initializes the game by setting up the canvas and the game world.
+ */
+function init() {
+  initLevel();
+  canvas =  document.getElementById('canvas');
+  world = new World(canvas, keyboard);
+  console.log('Anzahl der ID beim Start', world.intervalIds);  
+  gameStarted = true;
 }
 
 /**

@@ -23,26 +23,31 @@ class ThrowableObject extends MovableObject {
     super().loadImage('assets/img/6_salsa_bottle/2_salsa_bottle_on_ground.png');
     this.loadImages(this.IMAGES_ROTATION);
     this.loadImages(this.IMAGES_SPLASH);
+    this.applyGravity();
+    this.speedY = 25;
     this.x = x;
     this.y = y;
     this.width = 70;
     this.height = 80;
     this.world = world;
-    this.bottleThrowingDirection();
-    this.throw()
+    this.animate();
+  }
+
+  animate() {
+    if (this.world) {
+      this.throw();
+    }
   }
 
   /**
   * @description Initiates the throwing action, applying gravity to the object and making it fall after reaching a certain height.
   */
   throw() {
-    this.speedY = 25;
-    this.applyGravity();
-    let interval = setInterval(() => {
+    let throwInterval = setInterval(() => {
       if (this.isAboveGround()) {
         this.bottleThrowing();
       } else {
-        this.bottleSplashFloor(interval);
+        this.bottleSplashFloor(throwInterval);
       }
     }, 30);
   }
@@ -51,38 +56,18 @@ class ThrowableObject extends MovableObject {
   * @description Handles the bottle throwing animation and movement.
   */
   bottleThrowing() {
-   if (this.world.character.otherDirection) {
-       this.x -= 10;
-   } else {
-       this.x += 10;
-   }
-   this.playAnimation(this.IMAGES_ROTATION);
-  }
-
-  /**
-  * @description Sets the initial direction of the bottle based on the character's orientation.
-  */
-  bottleThrowingDirection() {
-    if (!this.world || !this.world.character) {
-      return;
-    } if (this.world.character.otherDirection) {
-      this.x = this.world.character.x - 20 ;
-    } else {
-      this.x = this.world.character.x + this.world.character.width - 50;
-    }
-    this.y = this.world.character.y + 80;
+    this.x += 10;
+    this.playAnimation(this.IMAGES_ROTATION);
   }
 
   /**
   * @description Handles the bottle splash animation and the interaction when the bottle hits the ground.
   * @param {number} interval - The interval ID used to clear the throwing animation when the bottle hits the ground.
   */
-  bottleSplashFloor(interval) {
-    clearInterval(interval);
-    if (world.soundEnabled) {
-      this.bottleSplash.play();
-    }
+  bottleSplashFloor(throwInterval) {
+    this.bottleSplash.play();
     this.playAnimation(this.IMAGES_SPLASH);
     setTimeout(() => this.remove(), 150);
+    clearInterval(throwInterval);
   }
 }
