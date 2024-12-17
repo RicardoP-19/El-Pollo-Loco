@@ -1,4 +1,5 @@
 class MovableObject extends DrawableObject{
+  world;
   speed = 0.17;
   otherDirection = false;
   speedY = 0;
@@ -6,20 +7,30 @@ class MovableObject extends DrawableObject{
   energy = 100;
   lastHit = 0;
 
+  constructor() {
+    super();
+    this.world = world;
+  }
+
   /**
   * Applies gravity to the object, adjusting its vertical position and speed.
   * This function ensures the object moves in a realistic way under the influence of gravity.
   * Runs at a fixed interval to update the object's vertical position.
   */
   applyGravity() {
-    setInterval(() => {
-      if (this.isAboveGround() || this.speedY > 0) {
+    let gravity = setInterval(() => {
+      console.log('gravity', gravity);
+      if (world.gameEnd) {
+        console.log('if bedingung true');        
+        clearInterval(gravity);
+        console.log('gravity interval gelöscht', gravity);        
+      } if (this.isAboveGround() || this.speedY > 0) {        
         this.y -= this.speedY;
         this.speedY -= this.acceleration;
       } else if (this.speedY !== 0) {
-        setTimeout(() => {this.speedY = 0;}, 30);
+        this.speedY = 0;
       }
-    }, 1000 / 25);
+    }, 1000 / 30);
   }
 
   /**
@@ -32,10 +43,10 @@ class MovableObject extends DrawableObject{
     if(this instanceof ThrowableObject) {
       return this.y < 330;
     } else {
-      return this.y < 160;
+      return this.y < 165;
     }
   }
-  
+
   /**
   * Checks if this object is colliding with another object.
   * Uses the bounding box method to check if the rectangles overlap.
@@ -121,18 +132,6 @@ class MovableObject extends DrawableObject{
     let path = images[i];
     this.img = this.imageCache[path];
     this.currentImage++; 
-  }
-
-  /**
-  * Stops the animation after a certain amount of time.
-  * This method clears the interval for the animation after 2 seconds.
-  * 
-  * @param {number} interval - The interval ID to clear.
-  */
-  stopAnimation(interval) {
-    setTimeout(() => {
-      clearInterval(interval);
-    }, 2000)
   }
 
   /**

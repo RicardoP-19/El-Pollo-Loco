@@ -46,7 +46,6 @@ class StatusBar extends DrawableObject {
     } else if (this.percentage > 20) {
       return 1;
     } else {
-      world.stopAllSounds();
       return 0;
     }
   }

@@ -3,7 +3,7 @@ class SmallChicken extends MovableObject{
   width = 35;
   height = 40;
   isDead = false;
-  // smallChicken = new Audio('assets/audio/small_chicken.mp3');
+  smallChicken = new Audio('assets/audio/small_chicken.mp3');
   offset = {
     top: -15,
     left: -5,
@@ -24,7 +24,7 @@ class SmallChicken extends MovableObject{
     this.loadImages(this.IMAGES_WALKING);
     this.loadImage(this.IMAGES_DEAD);
     this.x = 500 + Math.random() * 2000;
-    this.speed = 0.15 + Math.random() * 0.27;
+    this.speed = 1 + Math.random() * 0.27;
     this.animate();
   }
 
@@ -33,19 +33,31 @@ class SmallChicken extends MovableObject{
   * Loads walking images, dead images, and sets a random starting position and speed.
   */
   animate() {
+    let animationStarted = setInterval(() => {
+      if (this.world) {
+        this.moveSmallChicken();
+        this.animateSmallChicken();
+      }
+      clearInterval(animationStarted);
+    }, 500);
+  }
+
+  moveSmallChicken() {
     let smallChickInterval = setInterval(() => {
       if (!this.isDead && gameStarted) {
         this.moveLeft();
         this.otherDirection = false;
       }
-      world.pushIntervall(smallChickInterval);
-    }, 1000 / 60);
+    }, 100);
+    world.pushIntervall(smallChickInterval);
+  }
 
+  animateSmallChicken() {
     let smallChickenAnimteInterval = setInterval(() => {
       if (!this.isDead && gameStarted) {
         this.playAnimation(this.IMAGES_WALKING);
       }
-      world.pushIntervall(smallChickenAnimteInterval);
-    }, 170);
+    }, 200);
+    world.pushIntervall(smallChickenAnimteInterval);
   }
 }

@@ -16,11 +16,20 @@ class Cloud extends MovableObject {
    * The cloud moves left across the screen at a constant speed.
    */
   animate() {
-    let cloudInterval = setInterval(() => {
-      this.moveLeft();
+    let animationCloud = setInterval(() => {    
       if (this.world) {
-        this.world.pushIntervall(cloudInterval); 
+        this.cloudsMoveLeft();
+      }
+      clearInterval(animationCloud);
+    }, 500);
+  }
+
+  cloudsMoveLeft() {
+    let cloudInterval = setInterval(() => {
+      if (this.world) {
+        this.moveLeft();
       }
     }, 20);
+    world.pushIntervall(cloudInterval);
   }
 }

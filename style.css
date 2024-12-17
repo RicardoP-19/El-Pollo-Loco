@@ -96,7 +96,11 @@ footer {
   position: absolute;
   top: 0;
   z-index: 9999;
-  background-color: rgb(0, 0, 0);
+}
+
+.rotate-img {
+  background-position: center;
+  background-size: contain;
 }
 
 .mobile {

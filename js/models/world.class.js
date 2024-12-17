@@ -23,6 +23,7 @@ class World {
     this.ctx = canvas.getContext('2d');
     this.canvas = canvas;
     this.keyboard = keyboard;
+    this.soundEnabled = true;
     this.draw();
     this.setWorld();
     this.run();
@@ -35,6 +36,8 @@ class World {
   */
   setWorld() {
     this.character.world = this;
+    this.level.endboss[0].world = this;
+    this.level.enemies.forEach(enemie => enemie.world = this);
     this.level.clouds.forEach(cloud => cloud.world = this);
     this.level.coins.forEach(coin => coin.world = this);
     this.level.bottles.forEach(bottle => bottle.world = this);
@@ -47,8 +50,10 @@ class World {
     let runInterval = setInterval(() => {
       this.checkThrowObjects();
       this.checkEndbossBar();
-      this.pushIntervall(runInterval);
+      this.characterAndBottles();
+      this.characterAndCoins();
     }, 200)
+    this.pushIntervall(runInterval);
   }
 
   /**
@@ -58,11 +63,9 @@ class World {
     let collisionInterval = setInterval(() => {
       this.characterAndChicken();
       this.collisionsBottle();
-      this.characterAndCoins();
-      this.characterAndBottles();
       this.characterAndEndboss();
-      this.pushIntervall(collisionInterval);
     }, 30);
+    this.pushIntervall(collisionInterval);
   }
 
   /**
@@ -124,14 +127,11 @@ class World {
   */
   collisionsBottle() {
     this.ThrowableObject.forEach((bottle) => { 
-      let bottelInterval = setInterval(() => {
-        if (this.level.endboss[0].isColliding(bottle)) {
-          bottle.bottleSplashFloor(interval);
-          this.level.endboss[0].hit();
-          this.endbossBar.setPercentage(this.level.endboss[0].energy);
-        }
-        this.pushIntervall(bottelInterval);
-      }, 1000 / 150)
+      if (this.level.endboss[0].isColliding(bottle)) {
+        bottle.bottleSplashFloor();
+        this.level.endboss[0].hit();
+        this.endbossBar.setPercentage(this.level.endboss[0].energy);
+      }
     })
   }
 
@@ -177,11 +177,13 @@ class World {
   * @description Checks if the player has thrown a bottle and handles the action.
   */
   checkThrowObjects() {
-    if(this.keyboard.D && this.collectedBottles > 0) {
+    if(this.keyboard.D && this.collectedBottles > 0 && !this.character.otherDirection && !this.throwCooldown) {
       let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this);
       this.ThrowableObject.push(bottle);
       this.collectedBottles--;
       this.bottleBar.setPercentage(this.bottleBar.percentage - 10);
+      this.throwCooldown = true;
+      setTimeout(() => {this.throwCooldown = false}, 350);
     }
   }
 
@@ -191,9 +193,8 @@ class World {
   checkEndbossBar() {
     let distance = this.endbossBar.x - this.character.x ;
     if (distance < -1600) {
-      this.toggleBackgroundMusic(false);
       this.showEndbossBar = true;
-      this.level.endboss[0].startAlert();
+      this.level.endboss[0].startEndboss();
     }
   }
 
@@ -306,10 +307,10 @@ class World {
   * @param {string} ended - The outcome of the game, either 'win' or 'lose'.
   */
   stopGame(ended) {
-    this.toggleBackgroundMusic(false);
+    this.gameEnd = true;
+    this.stopSound();
     this.stoppAllInterval();
     this.showEndScreen(ended);
-    // this.resetWorld();
   }
 
   /**
@@ -317,7 +318,6 @@ class World {
   * @param {string} ended - The outcome of the game.
   */
   showEndScreen(ended) {
-    this.gameEnd = true;
     this.endScreenChoose(ended);
     this.endScreenTypeButtons();
   }
@@ -354,9 +354,9 @@ class World {
   * @description Adds a new interval to the list of active intervals for later management.
   * @param {number} interval - The interval ID to be added.
   */
-  pushIntervall(interval) {  
-    world.intervalIds.push(interval);
-    // console.log(world.intervalIds); 
+  pushIntervall(interval) {   
+    this.intervalIds.push(interval);
+    console.log('gepuschte Intervale', this.intervalIds);
   }
 
   /**
@@ -364,9 +364,19 @@ class World {
   */
   stoppAllInterval() {
     this.intervalIds.forEach(clearInterval);
+    console.log('gelöschte Intervale', this.intervalIds);
     this.intervalIds = [];
-    // console.log(this.intervalIds);
-    
+    console.log('Anzahl nach dem löschen Intervale', this.intervalIds);
+  }
+
+  /**
+  * @description Initializes and plays the background music for the game.
+  */
+  gameMusic() {
+    this.soundEnabled = true;
+    this.backgroundMusic = new Audio('assets/audio/el_pollo_loco_music.mp3');
+    this.backgroundMusic.volume = 0.2;
+    this.backgroundMusic.play();
   }
 
   /**
@@ -394,6 +404,12 @@ class World {
     }   
   }
 
+  stopSound() {
+    this.backgroundMusic.pause();
+    this.level.endboss[0].alert_sound.pause();
+    this.level.endboss[0].enboss_sound.pause();
+  }
+
   /**
   * @description Plays an enemy sound based on the provided array name (e.g., 'chicken', 'smallChicken').
   * @param {string} array - The name of the array of enemies to play sound for.
@@ -413,58 +429,17 @@ class World {
   }
 
   /**
-  * @description Pauses a specific sound.
-  * @param {HTMLAudioElement} sound - The sound to be paused.
-  */
-  soundPause(sound) {
-    sound.pause();
-  }
-
-  /**
-  * @description Initializes and plays the background music for the game.
-  */
-  gameMusic() {
-    this.soundEnabled = true;
-    this.backgroundMusic = new Audio('assets/audio/el_pollo_loco_music.mp3');
-    this.backgroundMusic.loop = true;
-    this.backgroundMusic.volume = 0.2;
-    this.toggleBackgroundMusic(true);
-  }
-
-  /**
-  * @description Toggles the background music based on the provided state (play or pause).
-  * @param {boolean} play - True to play the background music, false to pause it.
-  */
-  toggleBackgroundMusic(play) {
-    if (this.soundEnabled && play) {
-      this.backgroundMusic.play();
-    } else {
-      this.backgroundMusic.pause();
-    }
-  }
-
-  /**
   * @description Toggles the sound in the game (enables or disables all sounds).
   */
   toggleSound() {
-    this.soundEnabled = !this.soundEnabled;
-    this.updateSoundIcon();
-    if (!this.soundEnabled) {
-      this.stopAllSounds();
-      this.toggleBackgroundMusic(false);
+    if (this.soundEnabled) {
+      this.soundEnabled = false;
+      this.backgroundMusic.pause();
     } else {
-      this.toggleBackgroundMusic(true);
+      this.soundEnabled = true;
+      this.backgroundMusic.play();
     }
-  }
-
-  /**
-  * @description Stops all sounds in the game.
-  */
-  stopAllSounds() {
-    if (this.level.endboss.length > 0) {
-      this.level.endboss[0].enboss_sound.pause();
-      this.level.endboss[0].alert_sound.pause();
-    }
+    this.updateSoundIcon();
   }
 
   /**
